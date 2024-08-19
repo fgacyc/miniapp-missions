@@ -1,62 +1,61 @@
-import NavBar from "../../components/nav-bar";
-// import {useSettingsStore} from "../../store/settings-store";
-import Block from "../../components/block.tsx";
-import {useTranslation} from "react-i18next";
-// import { Button } from "../../components/ui/button.tsx";
-import { RadioGroup, RadioGroupItem } from "../../components/ui/radio-group.tsx";
-import { Label } from "../../components/ui/label.tsx";
-import { Input } from "../../components/ui/input.tsx";
-import {useSettingsStore} from "../../store/settings-store.ts";
-import {Switch} from "../../components/ui/switch.tsx";
-import {useEffect} from "react";
+import Block from "../../components/block";
+import { NavBar, Switch, Radio, Space, Input } from "antd-mobile";
+import { useNavigate } from "react-router-dom";
+import { useSettingsStore } from "../../store/settings-store";
+import { useTranslation } from "react-i18next";
 
 export default function Settings() {
-    const [isDarkMode,toggleDarkMode] = useSettingsStore(state => [state.isDarkMode,state.toggleDarkMode]);
-    const [radioValue,setRadioValue] = useSettingsStore(state => [state.radioValue,state.setRadioValue])
-    const [inputValue,setInputValue] = useSettingsStore(state => [state.inputValue,state.setInputValue])
-    const { t } = useTranslation();
+  const navigate = useNavigate();
+  const [isDarkMode, toggleDarkMode] = useSettingsStore((state) => [
+    state.isDarkMode,
+    state.toggleDarkMode,
+  ]);
+  const [radioValue, setRadioValue] = useSettingsStore((state) => [
+    state.radioValue,
+    state.setRadioValue,
+  ]);
+  const [inputValue, setInputValue] = useSettingsStore((state) => [
+    state.inputValue,
+    state.setInputValue,
+  ]);
+  const { t } = useTranslation();
 
-    useEffect(() => {
-        console.log(radioValue)
-    }, [radioValue]);
-
-    return (
-        <div className={"h-screen"}>
-            <NavBar>{t("Settings")}</NavBar>
-            <Block title={undefined}>
-                <div className={"py-2 flex flex-row justify-between items-center"}>
-                    <div className={"text-base"}>Dark Mode</div>
-                    <Switch
-                        checked={isDarkMode}
-                        onCheckedChange={()=>{
-                            toggleDarkMode()
-                            console.log(isDarkMode)
-                        }}
-                            aria-label="Automatic updates"/>
-                </div>
-            </Block>
-
-            <Block title={undefined}>
-                <RadioGroup defaultValue="option-one"
-                    onValueChange={setRadioValue}
-                >
-                    <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="option-one" id="option-one" />
-                        <Label htmlFor="option-one">Option One</Label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="option-two" id="option-two" />
-                        <Label htmlFor="option-two">Option Two</Label>
-                    </div>
-                </RadioGroup>
-            </Block>
-
-            <Block title='Input'>
-                <Input type="email" placeholder="Email"
-                          value={inputValue}
-                          onChange={(e) => setInputValue(e.target.value)}
-                />
-            </Block>
+  return (
+    <div>
+      <NavBar onBack={() => navigate(-1)} className={"bg-white"}>
+        {t("Settings")}
+      </NavBar>
+      <Block>
+        <div className={"py-2 flex flex-row justify-between items-center"}>
+          <div className={"text-base"}>Dark Mode</div>
+          <Switch checked={isDarkMode} onChange={toggleDarkMode} />
         </div>
-    )
+      </Block>
+
+      <Block>
+        <Radio.Group
+          defaultValue={radioValue}
+          onChange={(val) => {
+            setRadioValue(val);
+          }}
+        >
+          <Space direction="vertical">
+            <Radio value="1">Item 1</Radio>
+            <Radio value="2">Item 2</Radio>
+            <Radio value="3">Item 3</Radio>
+          </Space>
+        </Radio.Group>
+      </Block>
+
+      <Block title="Input">
+        <Input
+          placeholder="Please input something"
+          value={inputValue}
+          onChange={(val) => {
+            setInputValue(val);
+          }}
+        />
+      </Block>
+    </div>
+  );
 }
