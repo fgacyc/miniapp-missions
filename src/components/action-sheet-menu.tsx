@@ -210,19 +210,25 @@ export default function ActionSheetMenu() {
     },
   ];
 
+  useEffect(() => {
+    if (showMenu) {
+      document.body.classList.add("overflow-hidden");
+    } else document.body.classList.remove("overflow-hidden");
+  }, [showMenu]);
+
   return (
-    <div>
+    <>
       <DevModal visible={devModal} setDevModal={setDevModal} />
       <div
-        className={`absolute top-0 h-screen w-screen  transition duration-300 ease-in-out
+        className={`fixed top-0 min-h-screen w-full transition duration-300 ease-in-out
             ${showMenu ? "z-10 bg-[#00000030]" : "-z-10 bg-[#00000000]"}`}
         onClick={() => setShowMenu(false)}
       ></div>
       <div
-        className={`absolute bottom-0 ease-in-out duration-300  w-full   z-20
+        className={`fixed -bottom-0 ease-in-out duration-300 w-full z-20
             ${
               showMenu
-                ? "transition-transform translate-y-0"
+                ? "transition-transform -translate-y-0"
                 : "transition-transform translate-y-full"
             }`}
       >
@@ -255,6 +261,6 @@ export default function ActionSheetMenu() {
 
         {/*</div>*/}
       </div>
-    </div>
+    </>
   );
 }

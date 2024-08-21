@@ -2,7 +2,39 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: SF Pro;
+  src: url("/fonts/SF-Pro-Display-Regular.otf");
+}
+
 body {
   background-color: #f2f3f5;
-  overflow-y: hidden;
+  /* overflow-y: hidden; */
+  font-family: SF Pro, sans-serif;
+}
+
+*:focus-within {
+  outline: none;
+}
+
+.gradient-loading {
+  animation-duration: 1.8s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: loading;
+  animation-timing-function: linear;
+  background: #dbdbdb;
+  background: linear-gradient(to right, #fafafa 8%, #bbbbbb 38%, #fafafa 54%);
+  background-size: 1000px 640px;
+
+  position: relative;
+}
+
+@keyframes loading {
+  0% {
+    background-position: -468px 0;
+  }
+  100% {
+    background-position: 468px 0;
+  }
 }

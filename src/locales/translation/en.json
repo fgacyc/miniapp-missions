@@ -16,5 +16,12 @@
   "Version": "Version",
   "Latest Version": "Latest Version",
   "Developer": "Developer",
-  "DEV": "DEV"
+  "DEV": "DEV",
+  "title": "Missions",
+  "messagetab": {
+    "1": "All",
+    "2": "How-To",
+    "3": "From The Bible",
+    "4": "Miracles"
+  }
 }
