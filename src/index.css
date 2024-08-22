@@ -10,7 +10,7 @@
 body {
   background-color: #f2f3f5;
   /* overflow-y: hidden; */
-  font-family: SF Pro, sans-serif;
+  font-family: "SF Pro", sans-serif;
 }
 
 *:focus-within {

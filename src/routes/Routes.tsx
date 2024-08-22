@@ -8,6 +8,7 @@ import About from "../pages/framework/about";
 import PrivacyPolicy from "../pages/framework/privacy-policy";
 import TermsOfService from "../pages/framework/terms-of-service";
 import Settings from "../pages/framework/settings";
+import MessageContent from "../modules/message/content";
 
 export const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ export const router = createBrowserRouter([
           {
             path: "message",
             element: <MessageTab />,
+          },
+          {
+            path: "message/:id",
+            element: <MessageContent />,
           },
           {
             path: "music",

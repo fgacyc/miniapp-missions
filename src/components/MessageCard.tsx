@@ -1,4 +1,6 @@
 import { FunctionComponent, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useMessages } from "../store/useMessages";
 
 interface MessageCardProps {
   id: number;
@@ -6,33 +8,45 @@ interface MessageCardProps {
 
 export const MessageCard: FunctionComponent<MessageCardProps> = ({ id }) => {
   const [loading, setLoading] = useState(true);
-  const [data, setData] = useState<Record<string, string>>();
+
+  const navigate = useNavigate();
+  const messageStore = useMessages();
+  const setMessage = messageStore.setMessage;
 
   useEffect(() => {
-    void fetch(`https://uni.api.fgacyc.com/miniapp_missions/messages/${id}`, {
+    void fetch(`${import.meta.env["VITE_API_URL"]}messages/${id}`, {
       method: "GET",
     }).then((res) =>
       res.json().then((data) => {
         if (res.ok) {
-          console.log(data.data);
+          //   console.log(data.data);
           setLoading(false);
-          setData(data.data);
+          setMessage(id, data.data);
         }
       })
     );
-  }, [id]);
+  }, [id, setMessage]);
 
   return (
-    <div
+    <button
+      onClick={() => navigate(`/message/${id}`)}
       className={`aspect-video ${
         loading ? "gradient-loading" : ""
-      } rounded-[10px] w-full overflow-hidden`}
+      } rounded-[10px] w-full overflow-hidden relative`}
     >
       {!loading ? (
         <>
-          <img src={data?.cover} />
+          <div className="absolute gap-1 left-5 bottom-5 flex flex-col items-start">
+            <p className="text-xl text-left w-[200px] text-white font-extrabold leading-none">
+              {messageStore[id].title}
+            </p>
+            <p className="text-white text-base font-thin">
+              {messageStore[id].subtitle}
+            </p>
+          </div>
+          <img src={messageStore[id].cover} />
         </>
       ) : null}
-    </div>
+    </button>
   );
 };

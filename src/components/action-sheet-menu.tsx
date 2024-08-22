@@ -221,11 +221,11 @@ export default function ActionSheetMenu() {
       <DevModal visible={devModal} setDevModal={setDevModal} />
       <div
         className={`fixed top-0 min-h-screen w-full transition duration-300 ease-in-out
-            ${showMenu ? "z-10 bg-[#00000030]" : "-z-10 bg-[#00000000]"}`}
+            ${showMenu ? "z-[999] bg-[#00000030]" : "-z-10 bg-[#00000000]"}`}
         onClick={() => setShowMenu(false)}
       ></div>
       <div
-        className={`fixed -bottom-0 ease-in-out duration-300 w-full z-20
+        className={`fixed -bottom-0 ease-in-out duration-300 w-full z-[9999]
             ${
               showMenu
                 ? "transition-transform -translate-y-0"
