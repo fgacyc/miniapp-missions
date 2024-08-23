@@ -27,7 +27,7 @@ export const Chip: FunctionComponent<ChipProps> = ({
         background: selected ? activeColor : unactiveColor,
       }}
       onClick={onClick}
-      className={`rounded-full border px-4 py-2 font-bold text-sm`}
+      className={`rounded-full border px-6 py-1.5 font-bold text-sm`}
     >
       {label}
     </button>

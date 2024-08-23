@@ -21,7 +21,7 @@ export const useMessages = create<MessageStore>()(
       },
     }),
     {
-      name: "fga-missions-miniapp",
+      name: "fga-missions-miniapp-messages",
     }
   )
 );

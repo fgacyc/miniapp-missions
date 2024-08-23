@@ -23,7 +23,7 @@ const MessageTab = () => {
   const [tab, setTab] = useState<MessageTab>(1);
   return (
     <div className="flex flex-col gap-5 w-full">
-      <div className="flex flex-row items-center gap-3">
+      <div className="inline-flex flex-row items-center gap-3 hide-scroll overflow-x-auto whitespace-nowrap">
         {([1, 2, 3, 4] as MessageTab[]).map((no) => (
           <Chip
             selected={tab === no}

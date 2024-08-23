@@ -44,7 +44,10 @@ export const MessageCard: FunctionComponent<MessageCardProps> = ({ id }) => {
               {messageStore[id].subtitle}
             </p>
           </div>
-          <img src={messageStore[id].cover} />
+          <img
+            src={messageStore[id].cover}
+            className="w-full h-full object-contain"
+          />
         </>
       ) : null}
     </button>
