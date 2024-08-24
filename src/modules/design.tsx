@@ -25,11 +25,11 @@ const DesignTab = () => {
         type: "",
         venue: "",
       }}
-      onSubmit={async (values, actions) => {
+      onSubmit={async (values) => {
         console.log(values);
       }}
     >
-      {({ isSubmitting }) => (
+      {() => (
         <Form className="flex flex-col gap-5">
           <FormInput<DesignFormikForm>
             label="Theme"
