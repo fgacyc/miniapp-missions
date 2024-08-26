@@ -1,10 +1,4 @@
-import {
-  FunctionComponent,
-  RefObject,
-  SyntheticEvent,
-  useRef,
-  useState,
-} from "react";
+import { useRef, useState } from "react";
 import { useMusics } from "../../store/useMusics";
 import { FaPlay } from "react-icons/fa";
 import Drawer from "react-modern-drawer";
@@ -14,6 +8,7 @@ import {
 } from "react-icons/io5";
 
 import "react-modern-drawer/dist/index.css";
+import { PlayRateProgress } from "@/components/AudioPlayer";
 
 // interface MusicDrawerProps {
 //   visible?: boolean;
@@ -69,72 +64,30 @@ export const MusicDrawer = () => {
           className="rounded-lg w-[75%] aspect-square max-w-[400px] max-h-[400px] object-cover object-center"
         />
         <div className="flex text-white flex-col w-full items-start gap-1.5">
-          <p className="font-bold text-3xl">
+          <p
+            className="font-bold text-3xl"
+            onClick={() => {
+              if (!ref.current) return;
+              ref.current.play();
+            }}
+          >
             {musicStore[currentlyPlaying.id].name}
           </p>
           <p className="font-bold text-base">
             {musicStore[currentlyPlaying.id].band}
           </p>
         </div>
-
+        {/* <div className="mt-2" /> */}
         <PlayRateProgress
           id={currentlyPlaying.id}
           loop={currentlyPlaying.loop}
           setPlay={setPlay}
           //   isPlaying={musicStore.currentlyPlaying.isPlaying}
           onDurationChange={(e) => setPlayRate(e.currentTarget.duration)}
-          ref={ref}
+          audioRef={ref}
           src={musicStore[currentlyPlaying.id].chorus}
         />
       </Drawer>
     </>
   ) : null;
-};
-
-interface PlayRateProgressProps {
-  id: number;
-  loop: boolean;
-  setPlay: (
-    id: number,
-    loop: boolean,
-    isPlaying: boolean,
-    playRate?: number
-  ) => void;
-  src: string;
-  //   isPlaying?: boolean;
-  ref: RefObject<HTMLAudioElement>;
-  onDurationChange: (e: SyntheticEvent<HTMLAudioElement, Event>) => void;
-}
-
-const PlayRateProgress: FunctionComponent<PlayRateProgressProps> = ({
-  src,
-  setPlay,
-  ref,
-  id,
-  onDurationChange,
-  loop,
-}) => {
-  return (
-    // <div className="relative w-full h-[2px] bg-white/40 rounded-full">
-
-    //   <div style={{
-
-    //   }} className="h-[4px] bg-white left-0 top-1/2 -translate-y-1/2"/>
-
-    //   <div
-    //     style={{
-    //       left: `${15}%`,
-    //     }}
-    //     className="rounded-full w-4 h-4 absolute bg-white top-1/2 -translate-y-1/2"
-    //   />
-    // </div>
-    <audio
-      onPlaying={() => setPlay(id, loop, true)}
-      onPause={() => setPlay(id, loop, false)}
-      onDurationChange={onDurationChange}
-      src={src}
-      ref={ref}
-      preload="metadata"
-    />
-  );
 };
