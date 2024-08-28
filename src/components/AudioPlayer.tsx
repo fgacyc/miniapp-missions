@@ -1,32 +1,47 @@
-import { FunctionComponent, RefObject, SyntheticEvent, useState } from "react";
+import { FunctionComponent, RefObject, useEffect, useState } from "react";
 import { AudioProgressBar } from "./AudioProgressBar";
 import { formatDurationDisplay } from "@/helpers";
 
+import { IoPlay, IoPause, IoPlayForward } from "react-icons/io5";
+import { LoopIcon } from "./graphics/LoopIcon";
+import { useMusics } from "@/store/useMusics";
+
 interface PlayRateProgressProps {
-  id: number;
-  loop: boolean;
-  setPlay: (
-    id: number,
-    loop: boolean,
-    isPlaying: boolean,
-    playRate?: number
-  ) => void;
   src: string;
   //   isPlaying?: boolean;
   audioRef: RefObject<HTMLAudioElement>;
-  onDurationChange: (e: SyntheticEvent<HTMLAudioElement, Event>) => void;
 }
 
 export const PlayRateProgress: FunctionComponent<PlayRateProgressProps> = ({
   src,
-  setPlay,
   audioRef,
-  id,
-  onDurationChange,
-  loop,
 }) => {
+  const musicStore = useMusics();
+  const currentlyPlaying = musicStore.currentlyPlaying;
+  const play = musicStore.play;
+
+  const allIds = Object.keys(musicStore)
+    .filter((key) => !isNaN(Number(key)))
+    .map((key) => Number(key));
+
   const [currrentProgress, setCurrrentProgress] = useState(0);
   const [buffered, setBuffered] = useState(0);
+  const [loop, setLoop] = useState(false);
+
+  useEffect(() => {
+    if (audioRef.current) {
+      // Reapply loop property and update src
+
+      audioRef.current.play();
+    }
+  }, [audioRef, src]);
+
+  useEffect(() => {
+    if (audioRef.current) {
+      // Reapply loop property and update src
+      audioRef.current.loop = loop;
+    }
+  }, [audioRef, loop]);
   // handler
   const handleBufferProgress: React.ReactEventHandler<HTMLAudioElement> = (
     e
@@ -82,16 +97,66 @@ export const PlayRateProgress: FunctionComponent<PlayRateProgressProps> = ({
           )}
         </p>
       </div>
+      <div className="py-4 px-6 flex flex-row items-center justify-between">
+        <LoopIcon
+          role="button"
+          onClick={() => {
+            if (!audioRef.current) return;
+            // console.log("before", audioRef.current.loop);
+            setLoop((prev) => !prev);
+          }}
+          className={`cursor-pointer h-[30px] ${
+            audioRef.current && audioRef.current.loop
+              ? "fill-white"
+              : "fill-[#606060]"
+          }`}
+        />
+        {/* <img src="/loop.png" className="object-cover h-[30px] " role="button" /> */}
+        {audioRef.current?.paused ? (
+          <IoPlay
+            color="white"
+            size={45}
+            className="cursor-pointer"
+            role="button"
+            onClick={() => {
+              if (!audioRef.current) return;
+              audioRef.current.play();
+            }}
+          />
+        ) : (
+          <IoPause
+            color="white"
+            size={45}
+            className="cursor-pointer"
+            role="button"
+            onClick={() => {
+              if (!audioRef.current) return;
+              audioRef.current.pause();
+            }}
+          />
+        )}
+        <IoPlayForward
+          className="cursor-pointer"
+          size={40}
+          color="white"
+          role="button"
+          onClick={() => {
+            allIds.includes(Number(currentlyPlaying.id) + 1)
+              ? play(Number(currentlyPlaying.id) + 1)
+              : play(1);
+          }}
+        />
+      </div>
+
+      {/* Hidden Audio Layer */}
       <audio
         onProgress={handleBufferProgress}
         onTimeUpdate={(e) => {
           handleBufferProgress(e);
           setCurrrentProgress(e.currentTarget.currentTime);
         }}
-        onPlaying={() => setPlay(id, loop, true)}
-        onPause={() => setPlay(id, loop, false)}
-        onDurationChange={onDurationChange}
         src={src}
+        loop={loop}
         ref={audioRef}
         preload="metadata"
       />

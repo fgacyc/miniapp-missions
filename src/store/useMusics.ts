@@ -1,36 +1,29 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-export type MusicType = Record<
-  | "id"
-  | "name"
-  | "band"
-  | "cover"
+export type MusicParts =
   | "intro"
   | "verse"
   | "chorus"
   | "instrumental"
-  | "createdAt"
-  | "updatedAt",
+  | "prechorus"
+  | "end"
+  | "lowchorus";
+
+export type MusicType = Record<
+  "id" | "name" | "band" | "cover" | MusicParts | "createdAt" | "updatedAt",
   string
 >;
 
 export type MusicStore = {
   [id: number]: MusicType;
   setMusics: (id: number, music: MusicType) => void;
-  play: (
-    id: number,
-    loop: boolean,
-    isPlaying: boolean,
-    playRate?: number
-  ) => void;
-  setPlayRate: (rate: number) => void;
+  play: (id: number) => void;
   currentlyPlaying: {
     id: number | null;
-    playRate: number;
-    loop: boolean;
-    isPlaying: boolean;
   };
+  drawer: boolean;
+  setDrawer: (value: boolean) => void;
 };
 
 export const useMusics = create<MusicStore>()(
@@ -42,26 +35,22 @@ export const useMusics = create<MusicStore>()(
         isPlaying: false,
         loop: false,
       },
+      drawer: false,
+      setDrawer: (value) => {
+        set({
+          drawer: value,
+        });
+      },
       setMusics: (id, music) => {
         set({
           [id]: music,
         });
       },
-      setPlayRate: (rate) => {
+      play: (id) => {
         set({
           currentlyPlaying: {
             ...get().currentlyPlaying,
-            playRate: rate,
-          },
-        });
-      },
-      play: (id, loop, isPlaying, playRate) => {
-        set({
-          currentlyPlaying: {
             id: id,
-            isPlaying: !get().currentlyPlaying.isPlaying ? isPlaying : false,
-            loop: !get().currentlyPlaying.loop ? loop : false,
-            playRate: playRate ?? 0,
           },
         });
       },

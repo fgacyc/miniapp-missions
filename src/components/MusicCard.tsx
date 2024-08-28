@@ -6,14 +6,17 @@ import "react-loading-skeleton/dist/skeleton.css";
 
 interface MusicCardProps {
   id: number;
+  openDrawer: () => void;
 }
 
-export const MusicCard: FunctionComponent<MusicCardProps> = ({ id }) => {
+export const MusicCard: FunctionComponent<MusicCardProps> = ({
+  id,
+  openDrawer,
+}) => {
   const [loading, setLoading] = useState(true);
 
   const musicStore = useMusics();
   const setMessage = musicStore.setMusics;
-  const currentlyPlaying = musicStore.currentlyPlaying;
   const play = musicStore.play;
 
   useEffect(() => {
@@ -32,9 +35,9 @@ export const MusicCard: FunctionComponent<MusicCardProps> = ({ id }) => {
 
   return (
     <button
-      onClick={() =>
-        play(id, currentlyPlaying.loop, currentlyPlaying.isPlaying)
-      }
+      onClick={() => {
+        play(id), openDrawer();
+      }}
       className="flex flex-col gap-1.5 w-full"
       key={id}
     >

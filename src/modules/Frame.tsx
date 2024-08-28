@@ -12,7 +12,7 @@ function Frame() {
   }, [initUser]);
 
   return (
-    <div className="h-full">
+    <div className="h-full pb-[60px]">
       <ActionSheetButtons />
       <ActionSheetMenu />
       <Outlet />

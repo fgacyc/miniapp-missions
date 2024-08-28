@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { useMusics } from "../../store/useMusics";
+import { MusicParts, useMusics } from "../../store/useMusics";
 import { FaPlay } from "react-icons/fa";
 import Drawer from "react-modern-drawer";
 import {
@@ -9,17 +9,18 @@ import {
 
 import "react-modern-drawer/dist/index.css";
 import { PlayRateProgress } from "@/components/AudioPlayer";
+import { SongGrid } from "@/components/SongGrid";
 
 // interface MusicDrawerProps {
 //   visible?: boolean;
 // }
 
 export const MusicDrawer = () => {
-  const [drawerVisible, setDrawerVisible] = useState(false);
+  const [selectedPart, setSelectedPart] = useState<MusicParts>("instrumental");
   const musicStore = useMusics();
   const currentlyPlaying = musicStore.currentlyPlaying;
-  const setPlayRate = musicStore.setPlayRate;
-  const setPlay = musicStore.play;
+  const drawerVisible = musicStore.drawer;
+  const setDrawerVisible = musicStore.setDrawer;
 
   const ref = useRef<HTMLAudioElement>(null);
 
@@ -50,42 +51,61 @@ export const MusicDrawer = () => {
       {/* Drawer - Bottom */}
       <Drawer
         overlayClassName="!opacity-30 !z-[99]"
-        className="!h-[90vh] flex flex-col items-center gap-6 rounded-t-[20px] !z-[999] p-6 !bg-gradient-to-b !from-[#2852A3] !to-[#0F1F3D]"
+        className="!h-[90vh] rounded-t-[20px] !z-[999] p-6 flex flex-col justify-between !bg-gradient-to-b !from-[#2852A3] !to-[#0F1F3D]"
         open={drawerVisible}
         direction="bottom"
         onClose={() => setDrawerVisible(false)}
       >
-        <div className="w-full flex flex-row items-center justify-between">
-          <IoChevronDownSharp color="white" size={40} />
-          <IoInformationCircleOutline size={40} color="white" />
+        <div className="flex flex-col items-center gap-6">
+          <div className="w-full flex flex-row items-center justify-between">
+            <IoChevronDownSharp
+              onClick={() => setDrawerVisible(false)}
+              role="button"
+              color="white"
+              size={40}
+            />
+            <IoInformationCircleOutline
+              onClick={() => alert("Info")}
+              size={40}
+              color="white"
+            />
+          </div>
+          <img
+            src={musicStore[currentlyPlaying.id].cover}
+            className="rounded-lg w-[75%] aspect-square max-w-[400px] max-h-[400px] object-cover object-center"
+          />
+          <div className="flex text-white flex-col w-full items-start gap-1.5">
+            <p
+              className="font-bold text-3xl"
+              onClick={() => {
+                if (!ref.current) return;
+                ref.current.play();
+              }}
+            >
+              {musicStore[currentlyPlaying.id].name}
+            </p>
+            <p className="font-bold text-base">
+              {musicStore[currentlyPlaying.id].band}
+            </p>
+          </div>
+          {/* <div className="mt-2" /> */}
+          <PlayRateProgress
+            //   isPlaying={musicStore.currentlyPlaying.isPlaying}
+            audioRef={ref}
+            src={musicStore[currentlyPlaying.id][selectedPart]}
+          />
         </div>
-        <img
-          src={musicStore[currentlyPlaying.id].cover}
-          className="rounded-lg w-[75%] aspect-square max-w-[400px] max-h-[400px] object-cover object-center"
-        />
-        <div className="flex text-white flex-col w-full items-start gap-1.5">
-          <p
-            className="font-bold text-3xl"
-            onClick={() => {
-              if (!ref.current) return;
-              ref.current.play();
-            }}
-          >
-            {musicStore[currentlyPlaying.id].name}
-          </p>
-          <p className="font-bold text-base">
-            {musicStore[currentlyPlaying.id].band}
-          </p>
-        </div>
-        {/* <div className="mt-2" /> */}
-        <PlayRateProgress
-          id={currentlyPlaying.id}
-          loop={currentlyPlaying.loop}
-          setPlay={setPlay}
-          //   isPlaying={musicStore.currentlyPlaying.isPlaying}
-          onDurationChange={(e) => setPlayRate(e.currentTarget.duration)}
-          audioRef={ref}
-          src={musicStore[currentlyPlaying.id].chorus}
+        <SongGrid
+          setSelectedParts={setSelectedPart}
+          parts={{
+            intro: musicStore[currentlyPlaying.id].intro,
+            verse: musicStore[currentlyPlaying.id].verse,
+            chorus: musicStore[currentlyPlaying.id].chorus,
+            prechorus: musicStore[currentlyPlaying.id].prechorus,
+            end: musicStore[currentlyPlaying.id].end,
+            instrumental: musicStore[currentlyPlaying.id].instrumental,
+            lowchorus: musicStore[currentlyPlaying.id].lowchorus,
+          }}
         />
       </Drawer>
     </>
