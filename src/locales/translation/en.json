@@ -18,6 +18,44 @@
   "Developer": "Developer",
   "DEV": "DEV",
   "title": "Missions",
+  "designtab": {
+    "generate": "Generate Design",
+    "form": {
+      "theme": {
+        "title": "Theme",
+        "placeholder": "What is the name of your event?"
+      },
+      "datetime": {
+        "title": "Date & Time",
+        "placeholder": "Insert your event date & time"
+      },
+      "venue": {
+        "title": "Venue",
+        "placeholder": "Insert your venue's address"
+      },
+      "type": {
+        "title": "Type",
+        "placeholder": "What type of event is it?"
+      },
+      "categories": {
+        "error": "Must have at least 1 category selected.",
+        "options": {
+          "secondary": "Secondary Student",
+          "college": "College / University",
+          "young_adults": "Young Adults",
+          "married": "Married",
+          "family": "Family",
+          "entrepreneur": "Entrepreneur"
+        },
+        "title": "Categories"
+      }
+    },
+    "generated": {
+      "title": "Your design is ready!",
+      "loading": "Your design is loading...",
+      "subtitle": "Here's a few for you to choose from."
+    }
+  },
   "messagetab": {
     "introduction": "Introduction",
     "save_this_sermon": "Save This Sermon",

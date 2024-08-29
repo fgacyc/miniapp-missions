@@ -1,5 +1,6 @@
 import { Field, useFormikContext } from "formik";
 import { FunctionComponent } from "react";
+import { useTranslation } from "react-i18next";
 
 interface FormInputProps<T> {
   name: keyof T;
@@ -72,11 +73,39 @@ export const DateTimeInput = <T,>({
   );
 };
 
+const categoryOptions: Record<"translationKey" | "actualKey", string>[] = [
+  {
+    translationKey: "designtab.form.categories.options.secondary",
+    actualKey: "Secondary Student",
+  },
+  {
+    translationKey: "designtab.form.categories.options.college",
+    actualKey: "College / University",
+  },
+  {
+    translationKey: "designtab.form.categories.options.young_adults",
+    actualKey: "Young Adults",
+  },
+  {
+    translationKey: "designtab.form.categories.options.married",
+    actualKey: "Married",
+  },
+  {
+    translationKey: "designtab.form.categories.options.family",
+    actualKey: "Family",
+  },
+  {
+    translationKey: "designtab.form.categories.options.entrepreneur",
+    actualKey: "Entrepreneur",
+  },
+];
+
 export const CategoriesInput = <T,>({
   name,
   label,
 }: // placeholder,
 FormInputProps<T>) => {
+  const { t } = useTranslation();
   const { errors, setFieldValue, values } = useFormikContext<T>();
   return (
     <div className="flex flex-col gap-3 w-full">
@@ -96,30 +125,22 @@ FormInputProps<T>) => {
         /> */}
 
         <div className="grid grid-rows-2 grid-cols-4 gap-2">
-          {[
-            "Secondary Students",
-            "College / University",
-            "Young Adults",
-            "Married",
-            "Family",
-            "Entrepreneur",
-          ].map((t) => (
+          {categoryOptions.map((opt) => (
             <FormChip
-              key={t}
-              label={t}
-              selected={(values[name] as string[]).includes(t)}
+              key={opt.actualKey}
+              label={t(opt.translationKey)}
+              selected={(values[name] as string[]).includes(opt.actualKey)}
               onClick={() => {
-                if ((values[name] as string[]).includes(t)) {
+                if ((values[name] as string[]).includes(opt.actualKey)) {
                   const newValue = (values[name] as string[]).filter(
-                    (a) => a !== t
+                    (a) => a !== opt.actualKey
                   );
-
                   // const newValue = values
                   setFieldValue(String(name), newValue);
                 } else
                   setFieldValue(String(name), [
                     ...(values[name] as string[]),
-                    t,
+                    opt.actualKey,
                   ]);
               }}
             />

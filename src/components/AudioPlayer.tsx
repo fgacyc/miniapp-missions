@@ -19,6 +19,7 @@ export const PlayRateProgress: FunctionComponent<PlayRateProgressProps> = ({
   const musicStore = useMusics();
   const currentlyPlaying = musicStore.currentlyPlaying;
   const play = musicStore.play;
+  const setPaused = musicStore.setPaused;
 
   const allIds = Object.keys(musicStore)
     .filter((key) => !isNaN(Number(key)))
@@ -28,13 +29,17 @@ export const PlayRateProgress: FunctionComponent<PlayRateProgressProps> = ({
   const [buffered, setBuffered] = useState(0);
   const [loop, setLoop] = useState(false);
 
-  useEffect(() => {
-    if (audioRef.current) {
-      // Reapply loop property and update src
+  // TODO: Enable this later
+  // useEffect(() => {
+  //   if (audioRef.current) {
+  //     // Reapply loop property and update src
 
-      audioRef.current.play();
-    }
-  }, [audioRef, src]);
+  //     audioRef.current
+  //       .play()
+  //       .then(() => setPaused(false))
+  //       .catch(() => setPaused(true));
+  //   }
+  // }, [audioRef, src, setPaused]);
 
   useEffect(() => {
     if (audioRef.current) {
@@ -111,7 +116,6 @@ export const PlayRateProgress: FunctionComponent<PlayRateProgressProps> = ({
               : "fill-[#606060]"
           }`}
         />
-        {/* <img src="/loop.png" className="object-cover h-[30px] " role="button" /> */}
         {audioRef.current?.paused ? (
           <IoPlay
             color="white"
@@ -121,6 +125,7 @@ export const PlayRateProgress: FunctionComponent<PlayRateProgressProps> = ({
             onClick={() => {
               if (!audioRef.current) return;
               audioRef.current.play();
+              setPaused(false);
             }}
           />
         ) : (
@@ -132,6 +137,7 @@ export const PlayRateProgress: FunctionComponent<PlayRateProgressProps> = ({
             onClick={() => {
               if (!audioRef.current) return;
               audioRef.current.pause();
+              setPaused(true);
             }}
           />
         )}

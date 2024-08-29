@@ -3,7 +3,11 @@ import {
   CategoriesInput,
   DateTimeInput,
   FormInput,
-} from "../components/forms/Input";
+} from "@/components/forms/Input";
+import { useTranslation } from "react-i18next";
+import * as Yup from "yup";
+import { useDesign } from "@/store/useDesign";
+import { useNavigate } from "react-router-dom";
 
 export type DesignFormikForm = {
   theme: string;
@@ -15,6 +19,9 @@ export type DesignFormikForm = {
 };
 
 const DesignTab = () => {
+  const { t } = useTranslation();
+  const { submit } = useDesign();
+  const navigate = useNavigate();
   return (
     <Formik<DesignFormikForm>
       initialValues={{
@@ -25,35 +32,41 @@ const DesignTab = () => {
         type: "",
         venue: "",
       }}
-      onSubmit={async (values) => {
-        console.log(values);
+      onSubmit={async (values, action) => {
+        submit(values);
+        action.resetForm();
+
+        navigate("/design/complete");
       }}
+      validationSchema={Yup.object().shape({
+        categories: Yup.array().min(1, t("designtab.form.categories.error")),
+      })}
     >
       {() => (
         <Form className="flex flex-col gap-5">
           <FormInput<DesignFormikForm>
-            label="Theme"
+            label={t("designtab.form.theme.title")}
             name="theme"
-            placeholder="What is the name of your event?"
+            placeholder={t("designtab.form.theme.placeholder")}
           />
           <DateTimeInput<DesignFormikForm>
-            label="Date & Time"
+            label={t("designtab.form.datetime.title")}
             name="datetime"
-            placeholder="Insert your event date & time"
+            placeholder={t("designtab.form.datetime.placeholder")}
           />
 
           <FormInput<DesignFormikForm>
-            label="Venue"
+            label={t("designtab.form.venue.title")}
             name="venue"
-            placeholder="Insert your venue's address"
+            placeholder={t("designtab.form.venue.placeholder")}
           />
           <FormInput<DesignFormikForm>
-            label="Type"
+            label={t("designtab.form.type.title")}
             name="type"
-            placeholder="What type of event is it?"
+            placeholder={t("designtab.form.type.placeholder")}
           />
           <CategoriesInput<DesignFormikForm>
-            label="Categories"
+            label={t("designtab.form.categories.title")}
             name="categories"
           />
           <div className="w-full px-4">
@@ -61,7 +74,7 @@ const DesignTab = () => {
               type="submit"
               className="rounded-full w-full bg-[#191D1A] py-2 text-lg text-white"
             >
-              Generate Design
+              {t("designtab.generate")}
             </button>
           </div>
         </Form>

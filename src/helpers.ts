@@ -6,3 +6,14 @@ export const formatDurationDisplay = (duration: number) => {
 
   return formatted;
 };
+
+export const extractDateTime = (dateTimeString: string) => {
+  // Parse the date and time string
+  const [date, time] = dateTimeString.split("T");
+
+  // Return the extracted date and time
+  return {
+    date, // '2024-08-06'
+    time, // '21:06'
+  };
+};

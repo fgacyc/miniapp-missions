@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { MusicParts, useMusics } from "../../store/useMusics";
-import { FaPlay } from "react-icons/fa";
+import { FaPause, FaPlay } from "react-icons/fa";
 import Drawer from "react-modern-drawer";
 import {
   IoInformationCircleOutline,
@@ -21,6 +21,7 @@ export const MusicDrawer = () => {
   const currentlyPlaying = musicStore.currentlyPlaying;
   const drawerVisible = musicStore.drawer;
   const setDrawerVisible = musicStore.setDrawer;
+  const setPaused = musicStore.setPaused;
 
   const ref = useRef<HTMLAudioElement>(null);
 
@@ -45,7 +46,33 @@ export const MusicDrawer = () => {
             </p>
           </div>
         </div>
-        <FaPlay size={20} color="white" className="mr-4" />
+        {currentlyPlaying.paused ? (
+          <FaPlay
+            size={20}
+            color="white"
+            className="mr-4"
+            role="button"
+            onClick={(e) => {
+              if (!ref.current) return;
+              ref.current.play();
+              setPaused(false);
+              e.stopPropagation();
+            }}
+          />
+        ) : (
+          <FaPause
+            size={25}
+            color="white"
+            className="mr-4"
+            role="button"
+            onClick={(e) => {
+              if (!ref.current) return;
+              ref.current.pause();
+              setPaused(true);
+              e.stopPropagation();
+            }}
+          />
+        )}
       </button>
 
       {/* Drawer - Bottom */}

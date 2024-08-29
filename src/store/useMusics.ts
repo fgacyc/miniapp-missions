@@ -21,9 +21,11 @@ export type MusicStore = {
   play: (id: number) => void;
   currentlyPlaying: {
     id: number | null;
+    paused: boolean;
   };
   drawer: boolean;
   setDrawer: (value: boolean) => void;
+  setPaused: (paused: boolean) => void;
 };
 
 export const useMusics = create<MusicStore>()(
@@ -31,9 +33,7 @@ export const useMusics = create<MusicStore>()(
     (set, get) => ({
       currentlyPlaying: {
         id: null,
-        playRate: 0,
-        isPlaying: false,
-        loop: false,
+        paused: true,
       },
       drawer: false,
       setDrawer: (value) => {
@@ -46,10 +46,18 @@ export const useMusics = create<MusicStore>()(
           [id]: music,
         });
       },
+      setPaused: (paused) => {
+        set({
+          currentlyPlaying: {
+            id: get().currentlyPlaying.id,
+            paused: paused,
+          },
+        });
+      },
       play: (id) => {
         set({
           currentlyPlaying: {
-            ...get().currentlyPlaying,
+            paused: get().currentlyPlaying.paused,
             id: id,
           },
         });

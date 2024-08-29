@@ -9,6 +9,7 @@ import PrivacyPolicy from "../pages/framework/privacy-policy";
 import TermsOfService from "../pages/framework/terms-of-service";
 import Settings from "../pages/framework/settings";
 import MessageContent from "../modules/message/content";
+import DesignContent from "@/modules/design/content";
 
 export const router = createBrowserRouter([
   {
@@ -23,6 +24,7 @@ export const router = createBrowserRouter([
             path: "design",
             element: <DesignTab />,
           },
+          { path: "design/complete", element: <DesignContent /> },
           {
             path: "message",
             element: <MessageTab />,
