@@ -12,7 +12,14 @@ const DesignContent = () => {
         {t("designtab.generated.subtitle")}
       </p>
 
-      <DesignCanvas />
+      <div
+        style={{
+          boxShadow: " 0px 4px 8px 0px #00000040",
+        }}
+        className="rounded-xl overflow-none flex flex-col items-center justify-center w-full mt-7"
+      >
+        <DesignCanvas className="w-full h-full" src="/instagram.png" />
+      </div>
     </div>
   );
 };
