@@ -11,14 +11,21 @@ const DesignContent = () => {
       <p className="text-[#92969D] text-base mt-1 text-center w-full">
         {t("designtab.generated.subtitle")}
       </p>
-
       <div
         style={{
           boxShadow: " 0px 4px 8px 0px #00000040",
         }}
-        className="rounded-xl overflow-none flex flex-col items-center justify-center w-full mt-7"
+        className="shad rounded-xl flex flex-col items-center justify-center w-full mt-7"
       >
-        <DesignCanvas className="w-full h-full" src="/instagram.png" />
+        <div
+          style={{
+            WebkitMaskImage:
+              "url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC)",
+          }}
+          className="overflow-none relative rounded-xl"
+        >
+          <DesignCanvas className="w-full h-full" variant={1} />
+        </div>
       </div>
     </div>
   );

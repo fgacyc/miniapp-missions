@@ -1,16 +1,113 @@
+@import url("https://fonts.googleapis.com/css2?family=Neuton:ital,wght@0,200;0,300;0,400;0,700;0,800;1,400&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @font-face {
-  font-family: SF Pro;
-  src: url("/fonts/SF-Pro-Display-Regular.otf");
+  font-family: SF-Pro;
+  font-weight: 100;
+  src: url("/fonts/sf-pro/thin.otf");
+}
+@font-face {
+  font-family: SF-Pro;
+  font-weight: 100;
+  font-style: italic;
+  src: url("/fonts/sf-pro/thinitalic.otf");
+}
+@font-face {
+  font-family: SF-Pro;
+  font-weight: 200;
+  src: url("/fonts/sf-pro/ultralight.otf");
+}
+@font-face {
+  font-family: SF-Pro;
+  font-weight: 200;
+  font-style: italic;
+  src: url("/fonts/sf-pro/ultralightitalic.otf");
+}
+@font-face {
+  font-family: SF-Pro;
+  font-weight: 300;
+  src: url("/fonts/sf-pro/light.otf");
+}
+@font-face {
+  font-family: SF-Pro;
+  font-weight: 300;
+  font-style: italic;
+  src: url("/fonts/sf-pro/lightitalic.otf");
+}
+@font-face {
+  font-family: SF-Pro;
+  font-weight: 400;
+  src: url("/fonts/sf-pro/regular.otf");
+}
+@font-face {
+  font-family: SF-Pro;
+  font-weight: 400;
+  font-style: italic;
+  src: url("/fonts/sf-pro/regularitalic.otf");
+}
+@font-face {
+  font-family: SF-Pro;
+  font-weight: 500;
+  src: url("/fonts/sf-pro/medium.otf");
+}
+@font-face {
+  font-family: SF-Pro;
+  font-weight: 500;
+  font-style: italic;
+  src: url("/fonts/sf-pro/mediumitalic.otf");
+}
+@font-face {
+  font-family: SF-Pro;
+  font-weight: 600;
+  src: url("/fonts/sf-pro/semibold.otf");
+}
+@font-face {
+  font-family: SF-Pro;
+  font-weight: 600;
+  font-style: italic;
+  src: url("/fonts/sf-pro/semibolditalic.otf");
+}
+@font-face {
+  font-family: SF-Pro;
+  font-weight: 700;
+  src: url("/fonts/sf-pro/bold.otf");
+}
+@font-face {
+  font-family: SF-Pro;
+  font-weight: 700;
+  font-style: italic;
+  src: url("/fonts/sf-pro/bolditalic.otf");
+}
+@font-face {
+  font-family: SF-Pro;
+  font-weight: 800;
+  src: url("/fonts/sf-pro/heavy.otf");
+}
+@font-face {
+  font-family: SF-Pro;
+  font-weight: 800;
+  font-style: italic;
+  src: url("/fonts/sf-pro/heavyitalic.otf");
+}
+@font-face {
+  font-family: SF-Pro;
+  font-weight: 900;
+  src: url("/fonts/sf-pro/black.otf");
+}
+@font-face {
+  font-family: SF-Pro;
+  font-weight: 900;
+  font-style: italic;
+  src: url("/fonts/sf-pro/blackitalic.otf");
 }
 
 body {
   background-color: #f2f3f5;
   /* overflow-y: hidden; */
-  font-family: "SF Pro", sans-serif;
+  font-family: "SF-Pro", sans-serif;
 }
 
 *:focus-within {

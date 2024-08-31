@@ -1,18 +1,104 @@
+import { extractDateTime } from "@/helpers";
+import { useDesign } from "@/store/useDesign";
 import { useEffect, useRef } from "react";
 
-interface DesignCanvasProps {
+type DesignVariant = 1 | 2 | 3;
+type FontPosition = {
+  x: number;
+  y: number;
+  fillStyle: string;
+  fontStyle: string;
+};
+type VariantObj = {
   src: string;
+  titlePos: FontPosition;
+  // subtitlePos?: FontPosition;
+  datetimePos: FontPosition;
+  venuePos: FontPosition;
+};
+interface DesignCanvasProps {
   className: string;
+  variant?: DesignVariant;
 }
 
+const variantMap: Record<DesignVariant, VariantObj> = {
+  1: {
+    src: "/posts/1.jpg",
+    titlePos: {
+      x: 124,
+      y: 522,
+      fillStyle: "#F89029",
+      fontStyle: "84px Neuton",
+    },
+    datetimePos: {
+      x: 124,
+      y: 930,
+      fillStyle: "#F89029",
+      fontStyle: "24px SF-Pro",
+    },
+    venuePos: {
+      x: 124,
+      y: 970,
+      fillStyle: "#F89029",
+      fontStyle: "24px SF-Pro",
+    },
+  },
+  2: {
+    src: "/posts/1.jpg",
+    titlePos: {
+      x: 124,
+      y: 522,
+      fillStyle: "#F89029",
+      fontStyle: "84px Neuton",
+    },
+    datetimePos: {
+      x: 124,
+      y: 930,
+      fillStyle: "#F89029",
+      fontStyle: "24px SF-Pro",
+    },
+    venuePos: {
+      x: 124,
+      y: 970,
+      fillStyle: "#F89029",
+      fontStyle: "24px SF-Pro",
+    },
+  },
+  3: {
+    src: "/posts/1.jpg",
+    titlePos: {
+      x: 124,
+      y: 522,
+      fillStyle: "#F89029",
+      fontStyle: "84px Neuton",
+    },
+    datetimePos: {
+      x: 124,
+      y: 930,
+      fillStyle: "#F89029",
+      fontStyle: "24px SF-Pro",
+    },
+    venuePos: {
+      x: 124,
+      y: 970,
+      fillStyle: "#F89029",
+      fontStyle: "24px SF-Pro",
+    },
+  },
+};
+
 export const DesignCanvas: React.FC<DesignCanvasProps> = ({
-  src,
   className,
+  variant = 1,
 }) => {
   const ref = useRef<HTMLCanvasElement | null>(null);
-  const img = new Image();
+  const { form } = useDesign();
+  const pos = variantMap[variant];
+
+  const { date, time } = extractDateTime(form.datetime);
 
   useEffect(() => {
+    const img = new Image();
     if (!ref.current) return;
 
     const ctx = ref.current.getContext("2d");
@@ -29,27 +115,33 @@ export const DesignCanvas: React.FC<DesignCanvasProps> = ({
         ref.current.height
       );
 
-      /*
-      imgData.data is a one-dimensional array which contains 
-      the respective RGBA values for every pixel 
-      in the selected region of the context 
-      (note i+=4 in the loop)
-      */
-
-      // for (let i = 0; i < imgData.data.length; i += 4) {
-      //   imgData.data[i] = 255; // Red, 0-255
-      //   imgData.data[i + 1] = 255; // Green, 0-255
-      //   imgData.data[i + 2] = 255; // Blue, 0-255
-      //   // imgData.data[i + 3] contains the alpha value which we are ignoring
-      // }1
-
-      ctx.clearRect(0, 0, ref.current!.width, ref.current!.height); // Clear the original image
+      ctx.clearRect(0, 0, ref.current.width, ref.current.height); // Clear the original image
       ctx.putImageData(imgData, 0, 0); // Paint the new colorised image
+      // Title
+      ctx.fillStyle = pos.titlePos.fillStyle;
+      ctx.font = pos.titlePos.fontStyle;
+      ctx.textAlign = "left";
+      ctx.textBaseline = "top";
+      ctx.fillText(form.theme, pos.titlePos.x, pos.titlePos.y);
+
+      // Datetime
+      ctx.textAlign = "left";
+      ctx.textBaseline = "top";
+      ctx.fillStyle = pos.datetimePos.fillStyle;
+      ctx.font = pos.datetimePos.fontStyle;
+      ctx.fillText(`${date} | ${time}`, pos.datetimePos.x, pos.datetimePos.y);
+
+      // Venue
+      ctx.textAlign = "left";
+      ctx.textBaseline = "top";
+      ctx.fillStyle = pos.venuePos.fillStyle;
+      ctx.font = pos.venuePos.fontStyle;
+      ctx.fillText(form.venue, pos.venuePos.x, pos.venuePos.y);
     };
 
     // Load the image
-    img.src = src;
-  }, [src, img]);
+    img.src = pos.src;
+  }, [form, pos, variant, date, time]);
 
-  return <canvas ref={ref} className={className} width={1080} height={1080} />;
+  return <canvas ref={ref} className={className} width={1164} height={1164} />;
 };
