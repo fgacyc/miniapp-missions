@@ -28,9 +28,9 @@ export const SongGrid: React.FC<SongGridProps> = ({
           >
             <IoPlay size={23} />
             <p>
-              {data === "prechorus"
+              {data === "pre_chorus"
                 ? "Pre-Chorus"
-                : data === "lowchorus"
+                : data === "low_chorus"
                 ? "Low-Chorus"
                 : data}
             </p>

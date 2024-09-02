@@ -12,6 +12,7 @@ const MessageTab = () => {
     }).then((res) =>
       res.json().then((data) => {
         if (res.ok && data.status) {
+          // console.log(data.data);
           setCount(data.data as number);
         }
       })

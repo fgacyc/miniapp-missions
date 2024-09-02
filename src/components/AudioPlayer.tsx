@@ -29,17 +29,24 @@ export const PlayRateProgress: FunctionComponent<PlayRateProgressProps> = ({
   const [buffered, setBuffered] = useState(0);
   const [loop, setLoop] = useState(false);
 
-  // TODO: Enable this later
   // useEffect(() => {
-  //   if (audioRef.current) {
-  //     // Reapply loop property and update src
+  //   if (!audioRef.current) return;
 
-  //     audioRef.current
-  //       .play()
-  //       .then(() => setPaused(false))
-  //       .catch(() => setPaused(true));
-  //   }
-  // }, [audioRef, src, setPaused]);
+  //   audioRef.current.src = musicStore[Number(currentlyPlaying.id)].instrumental;
+  //   audioRef.current.play();
+  // }, [currentlyPlaying.id, audioRef, musicStore]);
+
+  // TODO: Enable this later
+  useEffect(() => {
+    if (audioRef.current) {
+      // Reapply loop property and update src
+
+      audioRef.current
+        .play()
+        .then(() => setPaused(false))
+        .catch(() => setPaused(true));
+    }
+  }, [audioRef, src, setPaused]);
 
   useEffect(() => {
     if (audioRef.current) {

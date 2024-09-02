@@ -13,21 +13,21 @@ const DesignContent = () => {
   const [loading, setLoading] = useState(true);
   const [currentActiveIndex, setCurrentActiveIndex] = useState<number>(0);
 
-  const handleShareImage = (href: string) => {
-    // @ts-expect-error no flutter_inappwebview in typical Window, this is injected in webview
-    if (!window.flutter_inappwebview) return;
-    // @ts-expect-error no flutter_inappwebview in typical Window, this is injected in webview
-    window.flutter_inappwebview
-      .callHandler(
-        "share",
-        "image",
-        `${form.theme}-${extractDateTime(form.datetime).date}.jpg`,
-        href
-      )
-      .then((result: string) => {
-        console.log(result);
-      });
-  };
+  // const handleShareImage = (href: string) => {
+  //   // @ts-expect-error no flutter_inappwebview in typical Window, this is injected in webview
+  //   if (!window.flutter_inappwebview) return;
+  //   // @ts-expect-error no flutter_inappwebview in typical Window, this is injected in webview
+  //   window.flutter_inappwebview
+  //     .callHandler(
+  //       "share",
+  //       "image",
+  //       `${form.theme}-${extractDateTime(form.datetime).date}.jpg`,
+  //       href
+  //     )
+  //     .then((result: string) => {
+  //       console.log(result);
+  //     });
+  // };
 
   useEffect(() => {
     const dmSerif = new FontFace(
@@ -230,7 +230,9 @@ const DesignContent = () => {
           link.download = `${form.theme}-${
             extractDateTime(form.datetime).date
           }.jpg`;
-          handleShareImage(image);
+          link.href = image;
+          link.click();
+          // handleShareImage(image);
         }}
       >
         {t("designtab.start_invite")}

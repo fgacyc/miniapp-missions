@@ -34,7 +34,7 @@ export const MessageCard: FunctionComponent<MessageCardProps> = ({ id }) => {
         loading ? "gradient-loading" : ""
       } rounded-[10px] w-full overflow-hidden relative`}
     >
-      {!loading ? (
+      {/* {!loading ? (
         <>
           <div className="absolute gap-1 left-5 bottom-5 flex flex-col items-start">
             <p className="text-xl text-left w-[200px] text-white font-extrabold leading-none">
@@ -49,7 +49,7 @@ export const MessageCard: FunctionComponent<MessageCardProps> = ({ id }) => {
             className="w-full h-full object-contain"
           />
         </>
-      ) : null}
+      ) : null} */}
     </button>
   );
 };

@@ -6,9 +6,9 @@ export type MusicParts =
   | "verse"
   | "chorus"
   | "instrumental"
-  | "prechorus"
+  | "pre_chorus"
   | "end"
-  | "lowchorus";
+  | "low_chorus";
 
 export type MusicType = Record<
   "id" | "name" | "band" | "cover" | MusicParts | "createdAt" | "updatedAt",

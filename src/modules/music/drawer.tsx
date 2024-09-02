@@ -119,7 +119,10 @@ export const MusicDrawer = () => {
           <PlayRateProgress
             //   isPlaying={musicStore.currentlyPlaying.isPlaying}
             audioRef={ref}
-            src={musicStore[currentlyPlaying.id][selectedPart]}
+            src={
+              musicStore[currentlyPlaying.id][selectedPart] ??
+              musicStore[currentlyPlaying.id].instrumental
+            }
           />
         </div>
         <SongGrid
@@ -128,10 +131,10 @@ export const MusicDrawer = () => {
             intro: musicStore[currentlyPlaying.id].intro,
             verse: musicStore[currentlyPlaying.id].verse,
             chorus: musicStore[currentlyPlaying.id].chorus,
-            prechorus: musicStore[currentlyPlaying.id].prechorus,
+            pre_chorus: musicStore[currentlyPlaying.id].pre_chorus,
             end: musicStore[currentlyPlaying.id].end,
             instrumental: musicStore[currentlyPlaying.id].instrumental,
-            lowchorus: musicStore[currentlyPlaying.id].lowchorus,
+            low_chorus: musicStore[currentlyPlaying.id].low_chorus,
           }}
         />
       </Drawer>
