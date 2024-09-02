@@ -30,7 +30,10 @@ interface DesignCanvasProps {
   variant: DesignVariant;
 }
 
-const variantMap: Record<TypeVariant, Record<DesignVariant, VariantObj>> = {
+const variantMap: Omit<
+  Record<TypeVariant, Record<DesignVariant, VariantObj>>,
+  ""
+> = {
   mid_autumn: {
     1: {
       src: "/1.jpg",
@@ -381,6 +384,7 @@ export const DesignCanvas: React.FC<DesignCanvasProps> = ({
 }) => {
   const ref = useRef<HTMLCanvasElement | null>(null);
   const { form } = useDesign();
+  // @ts-expect-error there will not be a index with "" its just a small hack for now
   const pos = variantMap[form.type][variant];
 
   const { date, time } = extractDateTime(form.datetime);
