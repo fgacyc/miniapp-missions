@@ -16,5 +16,57 @@
   "Version": "版本",
   "Latest Version": "最新版本",
   "Developer": "开发者",
-  "DEV": "开发"
+  "DEV": "开发",
+  "title": "Missions",
+  "designtab": {
+    "generate": "Generate Design",
+    "start_invite": "Start Inviting!",
+    "form": {
+      "required": "Required.",
+      "theme": {
+        "title": "Theme",
+        "placeholder": "What is the name of your event?"
+      },
+      "datetime": {
+        "title": "Date & Time",
+        "placeholder": "Insert your event date & time"
+      },
+      "venue": {
+        "title": "Venue",
+        "placeholder": "Insert your venue's address"
+      },
+      "type": {
+        "title": "Type",
+        "placeholder": "What type of event is it?",
+        "options": {
+          "mid_autumn": "Mid Autumn",
+          "food": "Food Party",
+          "games": "Games Party",
+          "parent_kid": "Parent-Kid Party",
+          "outing": "Outing"
+        },
+        "error": "Please select a type."
+      }
+    },
+    "generated": {
+      "title": "Your design is ready!",
+      "loading": "Your design is loading...",
+      "subtitle": "Here's a few for you to choose from."
+    }
+  },
+  "messagetab": {
+    "introduction": "Introduction",
+    "save_this_sermon": "Save This Sermon",
+    "1": "All",
+    "2": "How-To",
+    "3": "From The Bible",
+    "4": "Miracles"
+  },
+  "musictab": {
+    "1": "All",
+    "2": "Welcome Vibes",
+    "3": "Praise",
+    "4": "Worship",
+    "5": "1 hour"
+  }
 }
