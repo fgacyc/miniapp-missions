@@ -13,21 +13,21 @@ const DesignContent = () => {
   const [loading, setLoading] = useState(true);
   const [currentActiveIndex, setCurrentActiveIndex] = useState<number>(0);
 
-  // const handleShareImage = (href: string) => {
-  //   // @ts-expect-error no flutter_inappwebview in typical Window, this is injected in webview
-  //   if (!window.flutter_inappwebview) return;
-  //   // @ts-expect-error no flutter_inappwebview in typical Window, this is injected in webview
-  //   window.flutter_inappwebview
-  //     .callHandler(
-  //       "share",
-  //       "image",
-  //       `${form.theme}-${extractDateTime(form.datetime).date}.jpg`,
-  //       href
-  //     )
-  //     .then((result: string) => {
-  //       console.log(result);
-  //     });
-  // };
+  const handleShareImage = (href: string) => {
+    // @ts-expect-error no flutter_inappwebview in typical Window, this is injected in webview
+    if (!window.flutter_inappwebview) return;
+    // @ts-expect-error no flutter_inappwebview in typical Window, this is injected in webview
+    window.flutter_inappwebview
+      .callHandler(
+        "share",
+        "image",
+        `${form.theme}-${extractDateTime(form.datetime).date}.jpg`,
+        href
+      )
+      .then((result: string) => {
+        console.log(result);
+      });
+  };
 
   useEffect(() => {
     const dmSerif = new FontFace(
@@ -220,19 +220,24 @@ const DesignContent = () => {
       <button
         className="rounded-full w-full bg-[#191D1A] py-2 text-lg mt-10 text-white"
         onClick={() => {
-          const canvas = document.getElementById(
-            `${currentActiveIndex + 1}`
-          ) as HTMLCanvasElement;
-          const image = canvas
-            .toDataURL("image/jpg", 1)
-            .replace("image/jpg", "image/octet-stream");
-          const link = document.createElement("a");
-          link.download = `${form.theme}-${
-            extractDateTime(form.datetime).date
-          }.jpg`;
-          link.href = image;
-          link.click();
-          // handleShareImage(image);
+          try {
+            const canvas = document.getElementById(
+              `${currentActiveIndex + 1}`
+            ) as HTMLCanvasElement;
+            const image = canvas
+              .toDataURL("image/jpg", 1)
+              .replace("image/jpg", "image/octet-stream");
+            const link = document.createElement("a");
+            link.download = `${form.theme}-${
+              extractDateTime(form.datetime).date
+            }.jpg`;
+            link.href = image;
+            link.click();
+
+            handleShareImage(image);
+          } catch (err) {
+            alert(err);
+          }
         }}
       >
         {t("designtab.start_invite")}
