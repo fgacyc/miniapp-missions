@@ -1,19 +1,28 @@
-import { FunctionComponent, RefObject, useEffect, useState } from "react";
+import {
+  Dispatch,
+  FunctionComponent,
+  RefObject,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
 import { AudioProgressBar } from "./AudioProgressBar";
 import { formatDurationDisplay } from "@/helpers";
 
 import { IoPlay, IoPause, IoPlayForward } from "react-icons/io5";
 import { LoopIcon } from "./graphics/LoopIcon";
-import { useMusics } from "@/store/useMusics";
+import { MusicParts, useMusics } from "@/store/useMusics";
 
 interface PlayRateProgressProps {
   src: string;
   //   isPlaying?: boolean;
   audioRef: RefObject<HTMLAudioElement>;
+  setSelectedPart: Dispatch<SetStateAction<MusicParts>>;
 }
 
 export const PlayRateProgress: FunctionComponent<PlayRateProgressProps> = ({
   src,
+  setSelectedPart,
   audioRef,
 }) => {
   const musicStore = useMusics();
@@ -38,15 +47,12 @@ export const PlayRateProgress: FunctionComponent<PlayRateProgressProps> = ({
 
   // TODO: Enable this later
   useEffect(() => {
-    if (audioRef.current) {
-      // Reapply loop property and update src
-
-      audioRef.current
-        .play()
-        .then(() => setPaused(false))
-        .catch(() => setPaused(true));
-    }
-  }, [audioRef, src, setPaused]);
+    if (!audioRef.current || currentlyPlaying.paused) return;
+    audioRef.current
+      .play()
+      .then(() => setPaused(false))
+      .catch(() => setPaused(true));
+  }, [audioRef, src, setPaused, currentlyPlaying.paused]);
 
   useEffect(() => {
     if (audioRef.current) {
@@ -157,6 +163,8 @@ export const PlayRateProgress: FunctionComponent<PlayRateProgressProps> = ({
             allIds.includes(Number(currentlyPlaying.id) + 1)
               ? play(Number(currentlyPlaying.id) + 1)
               : play(1);
+
+            setSelectedPart("instrumental");
           }}
         />
       </div>

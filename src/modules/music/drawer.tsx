@@ -119,6 +119,7 @@ export const MusicDrawer = () => {
           <PlayRateProgress
             //   isPlaying={musicStore.currentlyPlaying.isPlaying}
             audioRef={ref}
+            setSelectedPart={setSelectedPart}
             src={
               musicStore[currentlyPlaying.id][selectedPart] ??
               musicStore[currentlyPlaying.id].instrumental
