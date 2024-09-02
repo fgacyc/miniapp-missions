@@ -20,7 +20,9 @@
   "title": "Missions",
   "designtab": {
     "generate": "Generate Design",
+    "start_invite": "Start Inviting!",
     "form": {
+      "required": "Required.",
       "theme": {
         "title": "Theme",
         "placeholder": "What is the name of your event?"
@@ -35,19 +37,15 @@
       },
       "type": {
         "title": "Type",
-        "placeholder": "What type of event is it?"
-      },
-      "categories": {
-        "error": "Must have at least 1 category selected.",
+        "placeholder": "What type of event is it?",
         "options": {
-          "secondary": "Secondary Student",
-          "college": "College / University",
-          "young_adults": "Young Adults",
-          "married": "Married",
-          "family": "Family",
-          "entrepreneur": "Entrepreneur"
+          "mid_autumn": "Mid Autumn",
+          "food": "Food Party",
+          "games": "Games Party",
+          "parent_kid": "Parent-Kid Party",
+          "outing": "Outing"
         },
-        "title": "Categories"
+        "error": "Please select a type."
       }
     },
     "generated": {

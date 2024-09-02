@@ -255,3 +255,19 @@ input[type="range"]::-ms-fill-upper {
 input[type="range"]:focus::-ms-fill-upper {
   background: rgba(255, 255, 255, 0.4);
 }
+
+.splide__pagination li {
+  width: 10px !important;
+  height: 13px !important;
+  /* overflow: hidden; */
+}
+.splide__pagination__page {
+  width: 10px !important;
+  height: 10px !important;
+  border-radius: 9999px;
+  background-color: #d9d9d9;
+}
+.splide__pagination__page.is-active {
+  background-color: #1d1d1b !important
+  ;
+}

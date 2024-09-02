@@ -1,45 +1,59 @@
 import { Formik, Form } from "formik";
 import {
-  CategoriesInput,
+  // CategoriesInput,
   DateTimeInput,
   FormInput,
+  TypeInput,
 } from "@/components/forms/Input";
 import { useTranslation } from "react-i18next";
 import * as Yup from "yup";
 import { useDesign } from "@/store/useDesign";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { TypeVariant } from "@/components/DesignCanvas";
 
 export type DesignFormikForm = {
   theme: string;
   datetime: string;
   venue: string;
-  type: string;
-  categories: string[];
-  kids_friendly: boolean;
+  type: TypeVariant;
+  // kids_friendly: boolean;
 };
 
 const DesignTab = () => {
   const { t } = useTranslation();
-  const { submit } = useDesign();
+  const { submit, reset } = useDesign();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    reset();
+  }, [reset]);
+
   return (
     <Formik<DesignFormikForm>
       initialValues={{
-        categories: [],
         datetime: "",
-        kids_friendly: false,
+        // kids_friendly: false,
         theme: "",
-        type: "",
+        type: t("designtab.form.type.placeholder"),
         venue: "",
       }}
       onSubmit={async (values, action) => {
         submit(values);
         action.resetForm();
-
+        // console.log(values);
         navigate("/design/complete");
       }}
       validationSchema={Yup.object().shape({
-        categories: Yup.array().min(1, t("designtab.form.categories.error")),
+        datetime: Yup.string().required(t("designtab.form.required")),
+        theme: Yup.string().required(t("designtab.form.required")),
+        venue: Yup.string().required(t("designtab.form.required")),
+        type: Yup.string()
+          .not(
+            [t("designtab.form.type.placeholder")],
+            t("designtab.form.type.error")
+          )
+          .required(t("designtab.form.required")),
       })}
     >
       {() => (
@@ -60,15 +74,17 @@ const DesignTab = () => {
             name="venue"
             placeholder={t("designtab.form.venue.placeholder")}
           />
-          <FormInput<DesignFormikForm>
+          {/* <FormInput<DesignFormikForm>
+            label={t("designtab.form.type.title")}
+            name="type"
+            placeholder={t("designtab.form.type.placeholder")}
+          /> */}
+          <TypeInput<DesignFormikForm>
             label={t("designtab.form.type.title")}
             name="type"
             placeholder={t("designtab.form.type.placeholder")}
           />
-          <CategoriesInput<DesignFormikForm>
-            label={t("designtab.form.categories.title")}
-            name="categories"
-          />
+
           <div className="w-full px-4">
             <button
               type="submit"

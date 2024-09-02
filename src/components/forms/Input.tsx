@@ -1,6 +1,7 @@
 import { Field, useFormikContext } from "formik";
-import { FunctionComponent } from "react";
+// import { FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
+import { TypeVariant } from "../DesignCanvas";
 
 interface FormInputProps<T> {
   name: keyof T;
@@ -73,40 +74,40 @@ export const DateTimeInput = <T,>({
   );
 };
 
-const categoryOptions: Record<"translationKey" | "actualKey", string>[] = [
+const typesOption: { translationKey: string; actualKey: TypeVariant }[] = [
   {
-    translationKey: "designtab.form.categories.options.secondary",
-    actualKey: "Secondary Student",
+    translationKey: "designtab.form.type.options.mid_autumn",
+    actualKey: "mid_autumn",
   },
   {
-    translationKey: "designtab.form.categories.options.college",
-    actualKey: "College / University",
+    translationKey: "designtab.form.type.options.food",
+    actualKey: "food",
   },
   {
-    translationKey: "designtab.form.categories.options.young_adults",
-    actualKey: "Young Adults",
+    translationKey: "designtab.form.type.options.games",
+    actualKey: "games",
   },
   {
-    translationKey: "designtab.form.categories.options.married",
-    actualKey: "Married",
+    translationKey: "designtab.form.type.options.parent_kid",
+    actualKey: "parentkid",
   },
   {
-    translationKey: "designtab.form.categories.options.family",
-    actualKey: "Family",
+    translationKey: "designtab.form.type.options.outing",
+    actualKey: "outing",
   },
-  {
-    translationKey: "designtab.form.categories.options.entrepreneur",
-    actualKey: "Entrepreneur",
-  },
+  // {
+  //   translationKey: "designtab.form.type.options.entrepreneur",
+  //   actualKey: "Entrepreneur",
+  // },
 ];
 
-export const CategoriesInput = <T,>({
+export const TypeInput = <T,>({
   name,
   label,
-}: // placeholder,
-FormInputProps<T>) => {
+  placeholder,
+}: FormInputProps<T>) => {
   const { t } = useTranslation();
-  const { errors, setFieldValue, values } = useFormikContext<T>();
+  const { errors } = useFormikContext<T>();
   return (
     <div className="flex flex-col gap-3 w-full">
       <label
@@ -124,28 +125,24 @@ FormInputProps<T>) => {
           } px-6 py-4 placeholder:text-black/30 text-lg text-black bg-transparent`}
         /> */}
 
-        <div className="grid grid-rows-2 grid-cols-4 gap-2">
-          {categoryOptions.map((opt) => (
-            <FormChip
-              key={opt.actualKey}
-              label={t(opt.translationKey)}
-              selected={(values[name] as string[]).includes(opt.actualKey)}
-              onClick={() => {
-                if ((values[name] as string[]).includes(opt.actualKey)) {
-                  const newValue = (values[name] as string[]).filter(
-                    (a) => a !== opt.actualKey
-                  );
-                  // const newValue = values
-                  setFieldValue(String(name), newValue);
-                } else
-                  setFieldValue(String(name), [
-                    ...(values[name] as string[]),
-                    opt.actualKey,
-                  ]);
-              }}
-            />
+        {/* <div className="grid grid-rows-2 grid-cols-4 gap-2"> */}
+        <Field
+          as="select"
+          name={name}
+          // defaultValue={placeholder}
+          // onChange={(e) => setFieldValue(String(name), e.target.value)}
+          className={`w-full border rounded-[5px] ${
+            errors[name] ? "border-red-600" : "border-black/30"
+          } px-6 py-4 placeholder:text-black/30 text-lg text-black bg-transparent`}
+        >
+          <option disabled>{placeholder}</option>
+          {typesOption.map((types) => (
+            <option value={types.actualKey} key={types.actualKey}>
+              {t(types.translationKey)}
+            </option>
           ))}
-        </div>
+        </Field>
+        {/* </div> */}
         {errors[name] && (
           <p className="text-red-600 italic text-sm pr-2">
             {String(errors[name])}
@@ -156,30 +153,30 @@ FormInputProps<T>) => {
   );
 };
 
-interface FormChipProps {
-  label: string;
-  selected?: boolean;
-  onClick: () => void;
-}
+// interface FormChipProps {
+//   label: string;
+//   selected?: boolean;
+//   onClick: () => void;
+// }
 
-const FormChip: FunctionComponent<FormChipProps> = ({
-  label,
-  selected,
-  onClick,
-}) => {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={`bg-transparent rounded-full border px-1 py-2 ${
-        label.length > 15 ? "col-span-2" : "col-span-1"
-      } ${
-        selected
-          ? "border-green-600 text-green-600"
-          : "border-black/30 text-black/30"
-      } font-bold text-sm`}
-    >
-      {label}
-    </button>
-  );
-};
+// const FormChip: FunctionComponent<FormChipProps> = ({
+//   label,
+//   selected,
+//   onClick,
+// }) => {
+//   return (
+//     <button
+//       type="button"
+//       onClick={onClick}
+//       className={`bg-transparent rounded-full border px-1 py-2 ${
+//         label.length > 15 ? "col-span-2" : "col-span-1"
+//       } ${
+//         selected
+//           ? "border-green-600 text-green-600"
+//           : "border-black/30 text-black/30"
+//       } font-bold text-sm`}
+//     >
+//       {label}
+//     </button>
+//   );
+// };

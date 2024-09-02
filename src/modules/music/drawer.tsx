@@ -78,7 +78,7 @@ export const MusicDrawer = () => {
       {/* Drawer - Bottom */}
       <Drawer
         overlayClassName="!opacity-30 !z-[99]"
-        className="!h-[90vh] rounded-t-[20px] !z-[999] p-6 flex flex-col justify-between !bg-gradient-to-b !from-[#2852A3] !to-[#0F1F3D]"
+        className="!h-[94vh] overflow-y-auto rounded-t-[20px] !z-[999] p-6 flex flex-col justify-between !bg-gradient-to-b !from-[#2852A3] !to-[#0F1F3D]"
         open={drawerVisible}
         direction="bottom"
         onClose={() => setDrawerVisible(false)}
@@ -99,7 +99,7 @@ export const MusicDrawer = () => {
           </div>
           <img
             src={musicStore[currentlyPlaying.id].cover}
-            className="rounded-lg w-[75%] aspect-square max-w-[400px] max-h-[400px] object-cover object-center"
+            className="rounded-lg w-[65%] aspect-square max-w-[400px] max-h-[400px] object-cover object-center"
           />
           <div className="flex text-white flex-col w-full items-start gap-1.5">
             <p

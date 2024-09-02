@@ -5,15 +5,16 @@ import { persist } from "zustand/middleware";
 export type DesignStore = {
   form: DesignFormikForm;
   submit: (form: DesignFormikForm) => void;
+  reset: () => void;
 };
 
 export const useDesign = create<DesignStore>()(
   persist(
     (set) => ({
       form: {
-        categories: [""],
+        // categories: [""],
         datetime: "",
-        kids_friendly: false,
+        // kids_friendly: false,
         theme: "",
         type: "",
         venue: "",
@@ -21,6 +22,15 @@ export const useDesign = create<DesignStore>()(
       submit: (form) => {
         set({ form });
       },
+      reset: () =>
+        set({
+          form: {
+            datetime: "",
+            theme: "",
+            type: "",
+            venue: "",
+          },
+        }),
     }),
     {
       name: "fga-missions-miniapp-designs",
