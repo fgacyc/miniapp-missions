@@ -1,5 +1,5 @@
-import { useRef, useState } from "react";
-import { MusicParts, useMusics } from "../../store/useMusics";
+import { useRef } from "react";
+import { useMusics } from "../../store/useMusics";
 import { FaPause, FaPlay } from "react-icons/fa";
 import Drawer from "react-modern-drawer";
 import {
@@ -16,8 +16,9 @@ import { SongGrid } from "@/components/SongGrid";
 // }
 
 export const MusicDrawer = () => {
-  const [selectedPart, setSelectedPart] = useState<MusicParts>("instrumental");
+  // const [selectedPart, setSelectedPart] = useState<MusicParts>("instrumental");
   const musicStore = useMusics();
+  const selectedPart = musicStore.selectedPart;
   const currentlyPlaying = musicStore.currentlyPlaying;
   const drawerVisible = musicStore.drawer;
   const setDrawerVisible = musicStore.setDrawer;
@@ -119,7 +120,7 @@ export const MusicDrawer = () => {
           <PlayRateProgress
             //   isPlaying={musicStore.currentlyPlaying.isPlaying}
             audioRef={ref}
-            setSelectedPart={setSelectedPart}
+            // setSelectedPart={setSelectedPart}
             src={
               musicStore[currentlyPlaying.id][selectedPart] ??
               musicStore[currentlyPlaying.id].instrumental
@@ -127,7 +128,7 @@ export const MusicDrawer = () => {
           />
         </div>
         <SongGrid
-          setSelectedParts={setSelectedPart}
+          // setSelectedParts={setSelectedPart}
           parts={{
             intro: musicStore[currentlyPlaying.id].intro,
             verse: musicStore[currentlyPlaying.id].verse,

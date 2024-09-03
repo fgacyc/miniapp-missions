@@ -36,7 +36,9 @@ export const MusicCard: FunctionComponent<MusicCardProps> = ({
   return (
     <button
       onClick={() => {
-        play(id), openDrawer();
+        play(id);
+
+        openDrawer();
       }}
       className="flex flex-col gap-1.5 w-full"
       key={id}

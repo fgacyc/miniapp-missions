@@ -1,31 +1,23 @@
-import {
-  Dispatch,
-  FunctionComponent,
-  RefObject,
-  SetStateAction,
-  useEffect,
-  useState,
-} from "react";
+import { FunctionComponent, RefObject, useEffect, useState } from "react";
 import { AudioProgressBar } from "./AudioProgressBar";
 import { formatDurationDisplay } from "@/helpers";
 
 import { IoPlay, IoPause, IoPlayForward } from "react-icons/io5";
 import { LoopIcon } from "./graphics/LoopIcon";
-import { MusicParts, useMusics } from "@/store/useMusics";
+import { useMusics } from "@/store/useMusics";
 
 interface PlayRateProgressProps {
   src: string;
   //   isPlaying?: boolean;
   audioRef: RefObject<HTMLAudioElement>;
-  setSelectedPart: Dispatch<SetStateAction<MusicParts>>;
 }
 
 export const PlayRateProgress: FunctionComponent<PlayRateProgressProps> = ({
   src,
-  setSelectedPart,
   audioRef,
 }) => {
   const musicStore = useMusics();
+  const setSelectedPart = musicStore.setSelectedPart;
   const currentlyPlaying = musicStore.currentlyPlaying;
   const play = musicStore.play;
   const setPaused = musicStore.setPaused;
