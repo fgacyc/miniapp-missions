@@ -1,15 +1,19 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useMusics } from "../../store/useMusics";
 import { FaPause, FaPlay } from "react-icons/fa";
 import Drawer from "react-modern-drawer";
 import {
   IoInformationCircleOutline,
   IoChevronDownSharp,
+  IoPlay,
+  IoCloseCircleOutline,
+  IoPlayForward,
 } from "react-icons/io5";
 
 import "react-modern-drawer/dist/index.css";
 import { PlayRateProgress } from "@/components/AudioPlayer";
 import { SongGrid } from "@/components/SongGrid";
+import { LoopIcon } from "@/components/graphics/LoopIcon";
 
 // interface MusicDrawerProps {
 //   visible?: boolean;
@@ -25,6 +29,7 @@ export const MusicDrawer = () => {
   const setPaused = musicStore.setPaused;
 
   const ref = useRef<HTMLAudioElement>(null);
+  const [infoOverlay, setInfoOverlay] = useState(false);
 
   return currentlyPlaying.id ? (
     <>
@@ -79,11 +84,80 @@ export const MusicDrawer = () => {
       {/* Drawer - Bottom */}
       <Drawer
         overlayClassName="!opacity-30 !z-[99]"
-        className="!h-[94vh] overflow-y-auto rounded-t-[20px] !z-[999] p-6 flex flex-col justify-between !bg-gradient-to-b !from-[#2852A3] !to-[#0F1F3D]"
+        className="!h-[94vh] relative overflow-y-auto rounded-t-[20px] !z-[999] p-6 flex flex-col justify-between !bg-gradient-to-b !from-[#2852A3] !to-[#0F1F3D]"
         open={drawerVisible}
         direction="bottom"
         onClose={() => setDrawerVisible(false)}
       >
+        {infoOverlay && (
+          <div className="bg-black/90 z-[99] px-12 py-20 absolute top-0 left-0 rounded-t-[20px] h-full w-full flex-grow">
+            <IoCloseCircleOutline
+              size={45}
+              onClick={() => setInfoOverlay(false)}
+              color="white"
+              role="button"
+              className="absolute right-6 top-5"
+            />
+            <p className="text-white font-bold text-3xl">User Manual</p>
+            <p className="text-white font-bold text-lg mt-1">
+              How to use this music player?
+            </p>
+            <div className="py-4 px-6 flex flex-row my-14 items-center justify-between">
+              <div className="flex flex-col relative justify-center gap-1.5">
+                <div className="w-[40px] h-[40px] flex flex-col items-center justify-center">
+                  <LoopIcon />
+                </div>
+                <p className="font-bold text-lg absolute -bottom-12 left-1/2 -translate-x-1/2 text-white text-center">
+                  Loop
+                </p>
+              </div>
+              <div className="flex relative flex-col justify-center gap-1.5">
+                <IoPlay color="white" size={65} />
+                <p className="absolute -bottom-[35.5px] font-bold text-lg left-1/2 -translate-x-1/2 text-white text-center">
+                  Play
+                </p>
+              </div>
+              <div className="flex flex-col relative justify-center gap-1.5">
+                <IoPlayForward size={40} color="white" />
+                <p className="font-bold text-lg absolute -bottom-12 left-1/2 -translate-x-1/2 text-white text-center">
+                  Next
+                </p>
+              </div>
+            </div>
+            <div className="px-2 flex flex-col">
+              <p className="text-white text-lg font-bold text-justify w-full">
+                This media player is designed to help you lead praise & worship
+                and sustain a worship atmosphere in your Connect Group. You will
+                have full control over the song, for each song section.
+              </p>
+            </div>
+            <div className="mt-12 prose text-justify">
+              <ol className="text-white marker:text-white marker:font-bold marker:text-lg font-bold text-lg">
+                <li>
+                  Select the{" "}
+                  <span>
+                    <button
+                      className={`mx-1 bg-black border-white border rounded-md text-sm inline-flex flex-row items-center justify-center gap-1 px-2 py-[5px] align-middle`}
+                    >
+                      <IoPlay size={20} />
+                      <p className="m-0">Intro</p>
+                    </button>
+                  </span>{" "}
+                  section that you want to play.
+                </li>
+                <li>
+                  If you want to repeat the section, press the loop button.
+                  <span className="align-middle ml-1">
+                    <img
+                      className="m-0 w-[28px] h-[28px] align-middle inline-block"
+                      src="/small-loop.svg"
+                    />
+                  </span>
+                </li>
+              </ol>
+            </div>
+          </div>
+        )}
         <div className="flex flex-col items-center gap-6">
           <div className="w-full flex flex-row items-center justify-between">
             <IoChevronDownSharp
@@ -93,7 +167,7 @@ export const MusicDrawer = () => {
               size={40}
             />
             <IoInformationCircleOutline
-              onClick={() => alert("Info")}
+              onClick={() => setInfoOverlay(true)}
               size={40}
               color="white"
             />
