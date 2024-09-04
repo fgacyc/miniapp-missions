@@ -1,4 +1,5 @@
 import { DesignCanvas } from "@/components/DesignCanvas";
+import { LoaderSVG } from "@/components/graphics/Loader";
 import { extractDateTime } from "@/helpers";
 import { useDesign } from "@/store/useDesign";
 import { useEffect, useRef, useState } from "react";
@@ -12,8 +13,9 @@ const DesignContent = () => {
   const swiperRef = useRef(null);
   const [loading, setLoading] = useState(true);
   const [currentActiveIndex, setCurrentActiveIndex] = useState<number>(0);
-
+  const [downloading, setDownloading] = useState(false);
   const handleShareImage = (href: string) => {
+    setDownloading(true);
     // @ts-expect-error no flutter_inappwebview in typical Window, this is injected in webview
     if (!window.flutter_inappwebview) return;
     // @ts-expect-error no flutter_inappwebview in typical Window, this is injected in webview
@@ -26,7 +28,10 @@ const DesignContent = () => {
       )
       .then((result: string) => {
         console.log(result);
-      });
+      })
+      // @ts-expect-error no flutter_inappwebview in typical Window, this is injected in webview
+      .catch((err) => alert(err))
+      .finally(() => setDownloading(false));
   };
 
   useEffect(() => {
@@ -144,7 +149,7 @@ const DesignContent = () => {
           }}
           className="shad rounded-xl flex flex-col items-center justify-center w-full aspect-square mt-7"
         >
-          <span className="loader" />
+          <LoaderSVG fill="black" />
         </div>
       ) : (
         <Splide
@@ -218,6 +223,7 @@ const DesignContent = () => {
         </Splide>
       )}
       <button
+        disabled={loading || downloading}
         className="rounded-full w-full bg-[#191D1A] py-2 text-lg mt-10 text-white"
         onClick={() => {
           try {
@@ -237,10 +243,16 @@ const DesignContent = () => {
             handleShareImage(image);
           } catch (err) {
             alert(err);
+          } finally {
+            setDownloading(false);
           }
         }}
       >
-        {t("designtab.start_invite")}
+        {downloading ? (
+          <LoaderSVG fill="white" className="mx-auto" />
+        ) : (
+          t("designtab.start_invite")
+        )}
       </button>
     </div>
   );
