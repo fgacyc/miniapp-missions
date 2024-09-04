@@ -17,6 +17,7 @@ type FontPosition = {
   fontStyle: string;
   textAlign?: CanvasTextAlign;
   noUppercase?: boolean;
+  lineHeight?: number;
 };
 type VariantObj = {
   src: string;
@@ -42,10 +43,11 @@ const variantMap: Omit<
         y: 520,
         fillStyle: "#F89029",
         fontStyle: "84px Neuton",
+        lineHeight: 70,
       },
       datetimePos: {
         x: 124,
-        y: 930,
+        y: 927,
         fillStyle: "#F89029",
         fontStyle: "900 30px SF-Pro",
       },
@@ -64,6 +66,7 @@ const variantMap: Omit<
         fillStyle: "#555553",
         fontStyle: "110px dmserif",
         textAlign: "center",
+        lineHeight: 100,
       },
       datetimePos: {
         x: 582,
@@ -86,6 +89,7 @@ const variantMap: Omit<
         x: 134,
         y: 250,
         fontStyle: "900 110px poppins",
+        lineHeight: 105,
       },
       datetimePos: {
         x: 134,
@@ -109,6 +113,7 @@ const variantMap: Omit<
         y: 540,
         fillStyle: "rgba(255,255,255,0.7)",
         fontStyle: "140px war-is-over",
+        lineHeight: 140,
       },
       datetimePos: {
         x: 124,
@@ -127,10 +132,11 @@ const variantMap: Omit<
       src: "/2.jpg",
       titlePos: {
         x: 582,
-        y: 340,
+        y: 300,
         fillStyle: "#fff",
         fontStyle: "150px league-spartan",
         textAlign: "center",
+        lineHeight: 120,
       },
       datetimePos: {
         x: 582,
@@ -154,6 +160,7 @@ const variantMap: Omit<
         y: 250,
         fillStyle: "#C79562",
         fontStyle: "900 110px tenor-sans",
+        lineHeight: 115,
       },
       datetimePos: {
         x: 134,
@@ -174,9 +181,10 @@ const variantMap: Omit<
       src: "/1.jpg",
       titlePos: {
         x: 124,
-        y: 540,
+        y: 510,
         fillStyle: "#fff",
         fontStyle: "140px archivo",
+        lineHeight: 110,
       },
       datetimePos: {
         x: 124,
@@ -195,10 +203,11 @@ const variantMap: Omit<
       src: "/2.jpg",
       titlePos: {
         x: 582,
-        y: 340,
+        y: 310,
         fillStyle: "#fff",
         fontStyle: "700 150px roboto-condensed",
         textAlign: "center",
+        lineHeight: 150,
       },
       datetimePos: {
         x: 582,
@@ -221,6 +230,7 @@ const variantMap: Omit<
         x: 134,
         y: 250,
         fontStyle: "800 140px raleway",
+        lineHeight: 120,
       },
       datetimePos: {
         x: 134,
@@ -245,6 +255,7 @@ const variantMap: Omit<
         fillStyle: "#462718",
         noUppercase: true,
         fontStyle: "114px feeling-passionate",
+        lineHeight: 120,
       },
       datetimePos: {
         x: 124,
@@ -263,10 +274,11 @@ const variantMap: Omit<
       src: "/2.jpg",
       titlePos: {
         x: 582,
-        y: 300,
+        y: 280,
         fillStyle: "#fff",
         fontStyle: "800 150px raleway",
         textAlign: "center",
+        lineHeight: 135,
       },
       datetimePos: {
         x: 582,
@@ -290,6 +302,7 @@ const variantMap: Omit<
         y: 250,
         fillStyle: "#1d1d1b",
         fontStyle: "800 140px advent-pro",
+        lineHeight: 125,
       },
       datetimePos: {
         x: 134,
@@ -396,6 +409,48 @@ export const DesignCanvas: React.FC<DesignCanvasProps> = ({
     const ctx = ref.current.getContext("2d");
     if (!ctx) return;
 
+    // printAtWordWrap( txt, 10, 20, 15, 90 );
+
+    function printAtWordWrap(
+      text: string,
+      x: number,
+      y: number,
+      lineHeight: number,
+      fitWidth: number
+    ) {
+      if (!ctx) return;
+      fitWidth = fitWidth || 0;
+
+      if (fitWidth <= 0) {
+        ctx.fillText(text, x, y);
+        return;
+      }
+      let words = text.split(" ");
+      let currentLine = 0;
+      let idx = 1;
+      while (words.length > 0 && idx <= words.length) {
+        const str = words.slice(0, idx).join(" ");
+        const w = ctx.measureText(str).width;
+        if (w > fitWidth) {
+          if (idx == 1) {
+            idx = 2;
+          }
+          ctx.fillText(
+            words.slice(0, idx - 1).join(" "),
+            x,
+            y + lineHeight * currentLine
+          );
+          currentLine++;
+          words = words.splice(idx - 1);
+          idx = 1;
+        } else {
+          idx++;
+        }
+      }
+      if (idx > 0)
+        ctx.fillText(words.join(" "), x, y + lineHeight * currentLine);
+    }
+
     img.onload = () => {
       if (!ref.current) return;
       // Draw the original image so that you can fetch the colour data
@@ -412,8 +467,8 @@ export const DesignCanvas: React.FC<DesignCanvasProps> = ({
       let gradient: CanvasGradient;
 
       if (form.type === "mid_autumn") {
-        gradient = ctx.createLinearGradient(0, 0, 0, 700);
-        gradient.addColorStop(0.34, "#73CFD5");
+        gradient = ctx.createLinearGradient(0, 0, 0, 1200);
+        gradient.addColorStop(0.24, "#73CFD5");
         gradient.addColorStop(0.5, "#6876B8");
       } else if (form.type === "games") {
         gradient = ctx.createLinearGradient(134, -200, 1200, 200);
@@ -427,10 +482,17 @@ export const DesignCanvas: React.FC<DesignCanvasProps> = ({
         ctx.font = pos.titlePos.fontStyle;
         ctx.textAlign = pos.titlePos.textAlign ?? "left";
         ctx.textBaseline = "top";
-        ctx.fillText(
+        // ctx.fillText(
+        //   !pos.titlePos.noUppercase ? form.theme.toUpperCase() : form.theme,
+        //   pos.titlePos.x,
+        //   pos.titlePos.y
+        // );
+        printAtWordWrap(
           !pos.titlePos.noUppercase ? form.theme.toUpperCase() : form.theme,
           pos.titlePos.x,
-          pos.titlePos.y
+          pos.titlePos.y,
+          pos.titlePos.lineHeight,
+          600
         );
 
         // Datetime
