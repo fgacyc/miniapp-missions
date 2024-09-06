@@ -5,7 +5,7 @@ import { persist } from "zustand/middleware";
 export type DesignStore = {
   form: DesignFormikForm;
   submit: (form: DesignFormikForm) => void;
-  reset: () => void;
+  reset: () => Promise<void>;
 };
 
 export const useDesign = create<DesignStore>()(
@@ -23,13 +23,16 @@ export const useDesign = create<DesignStore>()(
         set({ form });
       },
       reset: () =>
-        set({
-          form: {
-            datetime: "",
-            theme: "",
-            type: "",
-            venue: "",
-          },
+        new Promise((resolve) => {
+          set({
+            form: {
+              datetime: "",
+              theme: "",
+              type: "",
+              venue: "",
+            },
+          });
+          resolve();
         }),
     }),
     {

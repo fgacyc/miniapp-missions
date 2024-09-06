@@ -19,6 +19,7 @@
   "DEV": "DEV",
   "title": "Missions",
   "designtab": {
+    "reset": "Reset",
     "generate": "Generate Design",
     "start_invite": "Start Inviting!",
     "form": {

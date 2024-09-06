@@ -22,21 +22,23 @@ export type DesignFormikForm = {
 
 const DesignTab = () => {
   const { t } = useTranslation();
-  const { submit, form } = useDesign();
+  const { submit, form, reset } = useDesign();
   const navigate = useNavigate();
 
   return (
     <Formik<DesignFormikForm>
+      enableReinitialize
       initialValues={{
-        datetime: form.datetime ?? "",
+        datetime: form.datetime || "",
         // kids_friendly: false,
-        theme: form.theme ?? "",
-        type: form.type ?? t("designtab.form.type.placeholder"),
-        venue: form.venue ?? "",
+        theme: form.theme || "",
+        type: form.type || t("designtab.form.type.placeholder"),
+        venue: form.venue || "",
       }}
       onSubmit={async (values) => {
         submit(values);
         // action.resetForm();
+
         // console.log(values);
         navigate("/design/complete");
       }}
@@ -52,7 +54,7 @@ const DesignTab = () => {
           .required(t("designtab.form.required")),
       })}
     >
-      {() => (
+      {({ resetForm }) => (
         <Form className="flex flex-col gap-5">
           <FormInput<DesignFormikForm>
             label={t("designtab.form.theme.title")}
@@ -81,10 +83,17 @@ const DesignTab = () => {
             placeholder={t("designtab.form.type.placeholder")}
           />
 
-          <div className="w-full px-4">
+          <div className="w-full flex flex-row items-center gap-2">
+            <button
+              type="button"
+              onClick={() => reset().then(() => resetForm())}
+              className="rounded-full px-4 border-[#191D1A] border py-1.5 text-lg text-black"
+            >
+              {t("designtab.reset")}
+            </button>
             <button
               type="submit"
-              className="rounded-full w-full bg-[#191D1A] py-2 text-lg text-white"
+              className="rounded-full w-full bg-[#191D1A] py-1.5 text-lg text-white"
             >
               {t("designtab.generate")}
             </button>
