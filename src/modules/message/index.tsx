@@ -3,7 +3,7 @@ import { Chip } from "../../components/Chip";
 import { useTranslation } from "react-i18next";
 import { MessageCard } from "../../components/MessageCard";
 
-type MessageTab = 1 | 2 | 3 | 4;
+type MessageTab = 1 | 2 | 3;
 
 const MessageTab = () => {
   useEffect(() => {
@@ -25,7 +25,7 @@ const MessageTab = () => {
   return (
     <div className="flex flex-col gap-5 w-full">
       <div className="inline-flex flex-row items-center gap-3 hide-scroll overflow-x-auto whitespace-nowrap">
-        {([1, 2, 3, 4] as MessageTab[]).map((no) => (
+        {([1, 2, 3] as MessageTab[]).map((no) => (
           <Chip
             selected={tab === no}
             activeColor="#2852A3"
