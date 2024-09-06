@@ -1,8 +1,273 @@
+@import url("https://fonts.googleapis.com/css2?family=Neuton:ital,wght@0,200;0,300;0,400;0,700;0,800;1,400&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: SF-Pro;
+  font-weight: 100;
+  src: url("/fonts/sf-pro/thin.otf");
+}
+@font-face {
+  font-family: SF-Pro;
+  font-weight: 100;
+  font-style: italic;
+  src: url("/fonts/sf-pro/thinitalic.otf");
+}
+@font-face {
+  font-family: SF-Pro;
+  font-weight: 200;
+  src: url("/fonts/sf-pro/ultralight.otf");
+}
+@font-face {
+  font-family: SF-Pro;
+  font-weight: 200;
+  font-style: italic;
+  src: url("/fonts/sf-pro/ultralightitalic.otf");
+}
+@font-face {
+  font-family: SF-Pro;
+  font-weight: 300;
+  src: url("/fonts/sf-pro/light.otf");
+}
+@font-face {
+  font-family: SF-Pro;
+  font-weight: 300;
+  font-style: italic;
+  src: url("/fonts/sf-pro/lightitalic.otf");
+}
+@font-face {
+  font-family: SF-Pro;
+  font-weight: 400;
+  src: url("/fonts/sf-pro/regular.otf");
+}
+@font-face {
+  font-family: SF-Pro;
+  font-weight: 400;
+  font-style: italic;
+  src: url("/fonts/sf-pro/regularitalic.otf");
+}
+@font-face {
+  font-family: SF-Pro;
+  font-weight: 500;
+  src: url("/fonts/sf-pro/medium.otf");
+}
+@font-face {
+  font-family: SF-Pro;
+  font-weight: 500;
+  font-style: italic;
+  src: url("/fonts/sf-pro/mediumitalic.otf");
+}
+@font-face {
+  font-family: SF-Pro;
+  font-weight: 600;
+  src: url("/fonts/sf-pro/semibold.otf");
+}
+@font-face {
+  font-family: SF-Pro;
+  font-weight: 600;
+  font-style: italic;
+  src: url("/fonts/sf-pro/semibolditalic.otf");
+}
+@font-face {
+  font-family: SF-Pro;
+  font-weight: 700;
+  src: url("/fonts/sf-pro/bold.otf");
+}
+@font-face {
+  font-family: SF-Pro;
+  font-weight: 700;
+  font-style: italic;
+  src: url("/fonts/sf-pro/bolditalic.otf");
+}
+@font-face {
+  font-family: SF-Pro;
+  font-weight: 800;
+  src: url("/fonts/sf-pro/heavy.otf");
+}
+@font-face {
+  font-family: SF-Pro;
+  font-weight: 800;
+  font-style: italic;
+  src: url("/fonts/sf-pro/heavyitalic.otf");
+}
+@font-face {
+  font-family: SF-Pro;
+  font-weight: 900;
+  src: url("/fonts/sf-pro/black.otf");
+}
+@font-face {
+  font-family: SF-Pro;
+  font-weight: 900;
+  font-style: italic;
+  src: url("/fonts/sf-pro/blackitalic.otf");
+}
+
 body {
   background-color: #f2f3f5;
-  overflow-y: hidden;
+  /* overflow-y: hidden; */
+  font-family: "SF-Pro", sans-serif;
+}
+
+*:focus-within {
+  outline: none;
+}
+
+.gradient-loading {
+  animation-duration: 1.8s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: loading;
+  animation-timing-function: linear;
+  background: #dbdbdb;
+  background: linear-gradient(to right, #fafafa 8%, #bbbbbb 38%, #fafafa 54%);
+  background-size: 1000px 640px;
+
+  position: relative;
+}
+
+@keyframes loading {
+  0% {
+    background-position: -468px 0;
+  }
+  100% {
+    background-position: 468px 0;
+  }
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.hide-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.hide-scroll {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+:root {
+  --progress-width: 0;
+  --buffered-width: 0;
+}
+.progress-bar::-webkit-slider-thumb {
+  z-index: 4;
+  position: relative;
+  appearance: none;
+}
+.progress-bar::before {
+  transform: scaleX(var(--progress-width));
+  z-index: 3;
+}
+.progress-bar::after {
+  transform: scaleX(var(--buffered-width));
+  transform-origin: left;
+  z-index: 2;
+}
+
+/* thumb */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  /* border: 1px solid #000000; */
+  height: 16px;
+  width: 16px;
+  border-radius: 9999px;
+  background: #ffffff;
+  cursor: pointer;
+  margin-top: -7.5px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+
+  box-shadow: -407px 0 0 400px #fff;
+}
+
+/* All the same stuff for Firefox */
+input[type="range"]::-moz-range-thumb {
+  /* box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d; */
+  /* border: 1px solid #000000; */
+  height: 16px;
+  width: 16px;
+  border-radius: 9999px;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+/* All the same stuff for IE */
+input[type="range"]::-ms-thumb {
+  /* box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d; */
+  /* border: 1px solid #000000; */
+  height: 16px;
+  width: 16px;
+  border-radius: 9999px;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+/* Track */
+input[type="range"]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 1px;
+  cursor: pointer;
+  /* box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d; */
+  background: transparent;
+  /* border-radius: 1.3px; */
+  /* border: 0.2px solid #010101; */
+}
+
+input[type="range"]:focus::-webkit-slider-runnable-track {
+  background: transparent;
+}
+
+input[type="range"]::-moz-range-track {
+  width: 100%;
+  height: 1px;
+  cursor: pointer;
+  /* box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d; */
+  background: transparent;
+  /* border-radius: 1.3px; */
+  /* border: 0.2px solid #010101; */
+}
+
+input[type="range"]::-ms-track {
+  width: 100%;
+  height: 1px;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  border-width: 16px 0;
+  color: transparent;
+}
+input[type="range"]::-ms-fill-lower {
+  background: #fff;
+  /* border: 0.2px solid #010101; */
+  /* border-radius: 2.6px; */
+  /* box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d; */
+}
+input[type="range"]:focus::-ms-fill-lower {
+  background: #fff;
+}
+input[type="range"]::-ms-fill-upper {
+  background: rgba(255, 255, 255, 0.4);
+
+  /* border: 0.2px solid #010101; */
+  /* border-radius: 2.6px; */
+  /* box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d; */
+}
+input[type="range"]:focus::-ms-fill-upper {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.splide__pagination li {
+  width: 10px !important;
+  height: 13px !important;
+  /* overflow: hidden; */
+}
+.splide__pagination__page {
+  width: 10px !important;
+  height: 10px !important;
+  border-radius: 9999px;
+  background-color: #d9d9d9;
+}
+.splide__pagination__page.is-active {
+  background-color: #1d1d1b !important
+  ;
 }
