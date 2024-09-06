@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 export type MessageType = Record<
-  "verse" | "cover" | "subtitle" | "title" | "content",
+  "verse" | "cover" | "subtitle" | "title" | "content" | "tag",
   string
 >;
 

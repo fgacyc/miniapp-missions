@@ -152,11 +152,25 @@ export const PlayRateProgress: FunctionComponent<PlayRateProgressProps> = ({
           color="white"
           role="button"
           onClick={() => {
-            allIds.includes(Number(currentlyPlaying.id) + 1)
-              ? play(Number(currentlyPlaying.id) + 1)
-              : play(1);
+            const idToPlay = allIds.includes(Number(currentlyPlaying.id) + 1)
+              ? Number(currentlyPlaying.id) + 1
+              : 1;
 
-            setSelectedPart("instrumental");
+            play(idToPlay);
+
+            setSelectedPart(
+              musicStore[idToPlay].instrumental
+                ? "instrumental"
+                : musicStore[idToPlay].chorus
+                ? "chorus"
+                : musicStore[idToPlay].intro
+                ? "intro"
+                : musicStore[idToPlay].verse
+                ? "verse"
+                : musicStore[idToPlay].pre_chorus
+                ? "pre_chorus"
+                : "low_chorus"
+            );
           }}
         />
       </div>
