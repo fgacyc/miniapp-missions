@@ -9,7 +9,7 @@ import { useTranslation } from "react-i18next";
 import * as Yup from "yup";
 import { useDesign } from "@/store/useDesign";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import { TypeVariant } from "@/components/DesignCanvas";
 
 export type DesignFormikForm = {
@@ -22,25 +22,21 @@ export type DesignFormikForm = {
 
 const DesignTab = () => {
   const { t } = useTranslation();
-  const { submit, reset } = useDesign();
+  const { submit, form } = useDesign();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    reset();
-  }, [reset]);
 
   return (
     <Formik<DesignFormikForm>
       initialValues={{
-        datetime: "",
+        datetime: form.datetime ?? "",
         // kids_friendly: false,
-        theme: "",
-        type: t("designtab.form.type.placeholder"),
-        venue: "",
+        theme: form.theme ?? "",
+        type: form.type ?? t("designtab.form.type.placeholder"),
+        venue: form.venue ?? "",
       }}
-      onSubmit={async (values, action) => {
+      onSubmit={async (values) => {
         submit(values);
-        action.resetForm();
+        // action.resetForm();
         // console.log(values);
         navigate("/design/complete");
       }}
