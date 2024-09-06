@@ -3,16 +3,16 @@ import { Chip } from "../../components/Chip";
 import { useTranslation } from "react-i18next";
 import { MusicCard } from "../../components/MusicCard";
 import { useMusics } from "@/store/useMusics";
+import {useTabsStore} from "../../store/useTabs.ts";
 
 type MusicsTab = 1 | 2 | 3 | 4 | 5;
 
 const MusicTab = () => {
   const { t } = useTranslation();
   const [tab, setTab] = useState<MusicsTab>(1);
-
   const [count, setCount] = useState<number>(0);
-
   const { setDrawer } = useMusics();
+  const setMusicTab = useTabsStore((state) => state.setMusicTab);
 
   useEffect(() => {
     void fetch(`${import.meta.env["VITE_API_URL"]}musics/count`, {
@@ -27,10 +27,19 @@ const MusicTab = () => {
     );
   }, []);
 
-    // One Hour
-    // Welcome Vibes
-    // Praise
-    // Worship
+    useEffect(() => {
+        if (tab === 1) {
+            setMusicTab("All")
+        } else if (tab === 2) {
+            setMusicTab("Welcome Vibes")
+        } else if (tab === 3) {
+            setMusicTab("Praise")
+        } else if (tab === 4) {
+            setMusicTab("Worship")
+        } else if (tab === 5) {
+            setMusicTab("One Hour")
+        }
+    }, [setMusicTab, tab]);
 
   return (
     <div className="flex flex-col gap-5 w-full">

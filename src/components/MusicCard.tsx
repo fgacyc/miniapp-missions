@@ -3,6 +3,7 @@ import Skeleton from "react-loading-skeleton";
 import { useMusics } from "../store/useMusics";
 
 import "react-loading-skeleton/dist/skeleton.css";
+import {useTabsStore} from "../store/useTabs.ts";
 
 interface MusicCardProps {
   id: number;
@@ -14,6 +15,7 @@ export const MusicCard: FunctionComponent<MusicCardProps> = ({
   openDrawer,
 }) => {
   const [loading, setLoading] = useState(true);
+  const musicTab = useTabsStore((state) => state.musicTab);
 
   const musicStore = useMusics();
   const setMessage = musicStore.setMusics;
@@ -40,7 +42,9 @@ export const MusicCard: FunctionComponent<MusicCardProps> = ({
 
         openDrawer();
       }}
-      className="flex flex-col gap-1.5 w-full truncate"
+      className={`flex flex-col gap-1.5 w-full truncate
+      ${musicTab === "All" ? "" : musicTab !== musicStore[id].tag ? "hidden" : ""}
+      `}
       key={id}
     >
       {loading ? (
