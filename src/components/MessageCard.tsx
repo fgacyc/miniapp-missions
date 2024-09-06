@@ -1,6 +1,7 @@
 import { FunctionComponent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMessages } from "../store/useMessages";
+import {useTabsStore} from "../store/useTabs.ts";
 
 interface MessageCardProps {
   id: number;
@@ -12,6 +13,7 @@ export const MessageCard: FunctionComponent<MessageCardProps> = ({ id }) => {
   const navigate = useNavigate();
   const messageStore = useMessages();
   const setMessage = messageStore.setMessage;
+  const messageTab = useTabsStore((state) => state.messageTab);
 
   useEffect(() => {
     void fetch(`${import.meta.env["VITE_API_URL"]}messages/${id}`, {
@@ -27,12 +29,16 @@ export const MessageCard: FunctionComponent<MessageCardProps> = ({ id }) => {
     );
   }, [id, setMessage]);
 
+
   return (
       <button
           onClick={() => navigate(`/message/${id}`)}
           className={`aspect-video ${
               loading ? "gradient-loading" : ""
-          } rounded-[10px] w-full overflow-hidden relative`}
+          } 
+          ${messageTab === "All" ? "" : messageTab !== messageStore[id].tag ? "hidden" : ""}
+          
+          rounded-[10px] w-full overflow-hidden relative`}
       >
         {!loading ? (
             <>

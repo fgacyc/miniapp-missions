@@ -11,7 +11,7 @@ export type MusicParts =
   | "low_chorus";
 
 export type MusicType = Record<
-  "id" | "name" | "band" | "cover" | MusicParts | "createdAt" | "updatedAt",
+  "id" | "name" | "band" | "cover" | MusicParts | "createdAt" | "updatedAt" | "tag",
   string
 >;
 
