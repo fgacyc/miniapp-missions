@@ -40,7 +40,7 @@ export const MusicCard: FunctionComponent<MusicCardProps> = ({
 
         openDrawer();
       }}
-      className="flex flex-col gap-1.5 w-full"
+      className="flex flex-col gap-1.5 w-full truncate"
       key={id}
     >
       {loading ? (
@@ -51,7 +51,7 @@ export const MusicCard: FunctionComponent<MusicCardProps> = ({
           src={musicStore[id].cover}
         />
       )}
-      <div className="flex flex-col gap-0.5 justify-start">
+      <div className="flex flex-col gap-0.5 justify-start items-start ">
         {loading ? (
           <Skeleton baseColor="#bbbbbb" />
         ) : (
