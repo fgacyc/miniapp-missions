@@ -242,7 +242,7 @@ const DesignContent = () => {
 
             handleShareImage(image);
           } catch (err) {
-            alert(err);
+            console.error(err);
           } finally {
             setDownloading(false);
           }
