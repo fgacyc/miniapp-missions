@@ -42,7 +42,7 @@ const variantMap: Omit<
         x: 124,
         y: 520,
         fillStyle: "#F89029",
-        fontStyle: "84px Neuton",
+        fontStyle: "84px Neuton, chi1",
         lineHeight: 70,
       },
       datetimePos: {
@@ -64,7 +64,7 @@ const variantMap: Omit<
         x: 582,
         y: 340,
         fillStyle: "#555553",
-        fontStyle: "110px dmserif",
+        fontStyle: "110px dmserif, chi2",
         textAlign: "center",
         lineHeight: 100,
       },
@@ -88,7 +88,7 @@ const variantMap: Omit<
       titlePos: {
         x: 134,
         y: 250,
-        fontStyle: "900 110px poppins",
+        fontStyle: "900 110px poppins, chi3",
         lineHeight: 105,
       },
       datetimePos: {
@@ -112,7 +112,7 @@ const variantMap: Omit<
         x: 124,
         y: 540,
         fillStyle: "rgba(255,255,255,0.7)",
-        fontStyle: "140px war-is-over",
+        fontStyle: "140px war-is-over, chi4",
         lineHeight: 140,
       },
       datetimePos: {
@@ -134,7 +134,7 @@ const variantMap: Omit<
         x: 582,
         y: 300,
         fillStyle: "#fff",
-        fontStyle: "150px league-spartan",
+        fontStyle: "150px league-spartan, chi3",
         textAlign: "center",
         lineHeight: 120,
       },
@@ -159,7 +159,7 @@ const variantMap: Omit<
         x: 134,
         y: 250,
         fillStyle: "#C79562",
-        fontStyle: "900 110px tenor-sans",
+        fontStyle: "900 110px tenor-sans, chi6",
         lineHeight: 115,
       },
       datetimePos: {
@@ -183,7 +183,7 @@ const variantMap: Omit<
         x: 124,
         y: 510,
         fillStyle: "#fff",
-        fontStyle: "140px archivo",
+        fontStyle: "140px archivo, chi3",
         lineHeight: 110,
       },
       datetimePos: {
@@ -205,7 +205,7 @@ const variantMap: Omit<
         x: 582,
         y: 310,
         fillStyle: "#fff",
-        fontStyle: "700 150px roboto-condensed",
+        fontStyle: "700 150px roboto-condensed, chi8",
         textAlign: "center",
         lineHeight: 150,
       },
@@ -229,7 +229,7 @@ const variantMap: Omit<
       titlePos: {
         x: 134,
         y: 250,
-        fontStyle: "800 140px raleway",
+        fontStyle: "800 140px raleway, chi3",
         lineHeight: 120,
       },
       datetimePos: {
@@ -254,7 +254,7 @@ const variantMap: Omit<
         y: 540,
         fillStyle: "#462718",
         noUppercase: true,
-        fontStyle: "114px feeling-passionate",
+        fontStyle: "114px feeling-passionate, chi10",
         lineHeight: 120,
       },
       datetimePos: {
@@ -276,7 +276,7 @@ const variantMap: Omit<
         x: 582,
         y: 280,
         fillStyle: "#fff",
-        fontStyle: "800 150px raleway",
+        fontStyle: "800 150px raleway, chi3",
         textAlign: "center",
         lineHeight: 135,
       },
@@ -301,7 +301,7 @@ const variantMap: Omit<
         x: 134,
         y: 250,
         fillStyle: "#1d1d1b",
-        fontStyle: "800 140px advent-pro",
+        fontStyle: "800 140px advent-pro, chi8",
         lineHeight: 125,
       },
       datetimePos: {
@@ -326,7 +326,8 @@ const variantMap: Omit<
         y: 540,
         fillStyle: "#fff",
         // noUppercase: true,
-        fontStyle: "900 114px montserrat",
+        fontStyle: "900 114px montserrat, chi3",
+        lineHeight: 120,
       },
       datetimePos: {
         x: 124,
@@ -350,6 +351,7 @@ const variantMap: Omit<
         fillStyle: "#fff",
         fontStyle: "700 150px montserrat",
         textAlign: "center",
+        lineHeight: 150,
       },
       datetimePos: {
         x: 582,
@@ -373,7 +375,8 @@ const variantMap: Omit<
         y: 250,
         noUppercase: true,
         fillStyle: "#E69375",
-        fontStyle: "150px pinyon",
+        lineHeight: 140,
+        fontStyle: "150px pinyon, chi15",
       },
       datetimePos: {
         x: 134,
