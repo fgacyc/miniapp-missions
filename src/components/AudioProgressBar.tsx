@@ -17,17 +17,19 @@ export const AudioProgressBar: React.FunctionComponent<
 > = (props) => {
   const { fullDuration, currentProgress, buffered, ...rest } = props;
 
-  const progressBarWidth = isNaN(currentProgress / fullDuration)
-    ? 0
-    : currentProgress / fullDuration;
-  const bufferedWidth = isNaN(buffered / fullDuration)
-    ? 0
-    : buffered / fullDuration;
+  const progressBarWidth = currentProgress / fullDuration;
+  const bufferedWidth = buffered / fullDuration;
 
   const progressStyles: ProgressCSSProps = {
     "--progress-width": progressBarWidth,
     "--buffered-width": bufferedWidth,
   };
+
+  React.useEffect(() => {
+    console.log("progress width", progressBarWidth);
+    console.log("buffered width", bufferedWidth);
+    console.log("current progress", currentProgress);
+  }, [progressBarWidth, bufferedWidth, currentProgress]);
 
   return (
     <div className="group w-full">
@@ -36,7 +38,7 @@ export const AudioProgressBar: React.FunctionComponent<
         name="progress"
         style={progressStyles}
         min={0}
-        max={fullDuration}
+        max={fullDuration || 1}
         value={currentProgress}
         {...rest}
       />

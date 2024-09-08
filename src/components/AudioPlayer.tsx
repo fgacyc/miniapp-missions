@@ -89,7 +89,7 @@ export const PlayRateProgress: FunctionComponent<PlayRateProgressProps> = ({
     // </div>
     <div className="w-full flex flex-col mt-2">
       <AudioProgressBar
-        className="w-full progress-bar appearance-none focus:outline-none overflow-hidden"
+        className="w-full progress-bar appearance-none focus:outline-none overflow-hidden relative"
         fullDuration={audioRef?.current ? audioRef.current.duration : 0}
         buffered={buffered}
         currentProgress={currrentProgress}
