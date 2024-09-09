@@ -256,15 +256,7 @@ const DesignContent = () => {
             const canvas = document.getElementById(
               `${currentActiveIndex + 1}`
             ) as HTMLCanvasElement;
-            const image = canvas
-              .toDataURL("image/jpg", 1)
-              .replace("image/jpg", "image/octet-stream");
-            const link = document.createElement("a");
-            link.download = `${form.theme}-${
-              extractDateTime(form.datetime).date
-            }.jpg`;
-            link.href = image;
-            link.click();
+            const image = canvas.toDataURL("image/jpg", 1);
 
             handleShareImage(image);
           } catch (err) {
