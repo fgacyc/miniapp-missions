@@ -88,7 +88,7 @@ const variantMap: Omit<
       titlePos: {
         x: 134,
         y: 250,
-        fontStyle: "900 110px poppins, chi3",
+        fontStyle: "110px poppins, chi3",
         lineHeight: 105,
       },
       datetimePos: {
@@ -136,7 +136,7 @@ const variantMap: Omit<
         fillStyle: "#fff",
         fontStyle: "150px league-spartan, chi3",
         textAlign: "center",
-        lineHeight: 120,
+        lineHeight: 140,
       },
       datetimePos: {
         x: 582,
@@ -184,7 +184,7 @@ const variantMap: Omit<
         y: 510,
         fillStyle: "#fff",
         fontStyle: "140px archivo, chi3",
-        lineHeight: 110,
+        lineHeight: 130,
       },
       datetimePos: {
         x: 124,
@@ -205,9 +205,9 @@ const variantMap: Omit<
         x: 582,
         y: 310,
         fillStyle: "#fff",
-        fontStyle: "700 150px roboto-condensed, chi8",
+        fontStyle: "150px roboto-condensed, chi8",
         textAlign: "center",
-        lineHeight: 150,
+        lineHeight: 140,
       },
       datetimePos: {
         x: 582,
@@ -229,8 +229,8 @@ const variantMap: Omit<
       titlePos: {
         x: 134,
         y: 250,
-        fontStyle: "800 140px raleway, chi3",
-        lineHeight: 120,
+        fontStyle: "140px raleway, chi3",
+        lineHeight: 130,
       },
       datetimePos: {
         x: 134,
@@ -276,7 +276,7 @@ const variantMap: Omit<
         x: 582,
         y: 280,
         fillStyle: "#fff",
-        fontStyle: "800 150px raleway, chi3",
+        fontStyle: "150px raleway, chi3",
         textAlign: "center",
         lineHeight: 135,
       },
@@ -326,7 +326,7 @@ const variantMap: Omit<
         y: 540,
         fillStyle: "#fff",
         // noUppercase: true,
-        fontStyle: "900 114px montserrat, chi3",
+        fontStyle: "114px montserrat, chi3",
         lineHeight: 120,
       },
       datetimePos: {

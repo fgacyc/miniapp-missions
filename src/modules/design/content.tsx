@@ -14,8 +14,9 @@ const DesignContent = () => {
   const [loading, setLoading] = useState(true);
   const [currentActiveIndex, setCurrentActiveIndex] = useState<number>(0);
   const [downloading, setDownloading] = useState(false);
-  const handleShareImage = (href: string) => {
-    setDownloading(true);
+  const handleShareImage = async (href: string) => {
+    const res = await fetch(`${import.meta.env["VITE_API_URL"]}mission/upload`);
+
     // @ts-expect-error no flutter_inappwebview in typical Window, this is injected in webview
     if (!window.flutter_inappwebview) return;
     // @ts-expect-error no flutter_inappwebview in typical Window, this is injected in webview
@@ -30,8 +31,7 @@ const DesignContent = () => {
         console.log(result);
       })
       // @ts-expect-error no flutter_inappwebview in typical Window, this is injected in webview
-      .catch((err) => alert(err))
-      .finally(() => setDownloading(false));
+      .catch((err) => alert(err));
   };
 
   useEffect(() => {
@@ -251,7 +251,8 @@ const DesignContent = () => {
       <button
         disabled={loading || downloading}
         className="rounded-full w-full bg-[#191D1A] py-2 text-lg mt-10 text-white"
-        onClick={() => {
+        onClick={async () => {
+          setDownloading(true);
           try {
             const canvas = document.getElementById(
               `${currentActiveIndex + 1}`
