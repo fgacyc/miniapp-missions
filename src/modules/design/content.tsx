@@ -1,6 +1,6 @@
 import { DesignCanvas } from "@/components/DesignCanvas";
 import { LoaderSVG } from "@/components/graphics/Loader";
-import { convertToTimestamptzAtGMT8, extractDateTime } from "@/helpers";
+import { convertToTimestamptzAtGMT8 } from "@/helpers";
 import { useUserStore } from "@/store/use-store";
 import { useDesign } from "@/store/useDesign";
 import { useEffect, useRef, useState } from "react";
@@ -42,12 +42,7 @@ const DesignContent = () => {
     if (!window.flutter_inappwebview) return;
     // @ts-expect-error no flutter_inappwebview in typical Window, this is injected in webview
     window.flutter_inappwebview
-      .callHandler(
-        "share",
-        "image",
-        `${form.theme}-${extractDateTime(form.datetime).date}.jpg`,
-        result.data
-      )
+      .callHandler("share", "image", form.theme, result.data)
       .then((result: string) => {
         console.log(result);
       })
