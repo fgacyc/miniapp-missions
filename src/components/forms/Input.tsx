@@ -89,7 +89,7 @@ const typesOption: { translationKey: string; actualKey: TypeVariant }[] = [
   },
   {
     translationKey: "designtab.form.type.options.parent_kid",
-    actualKey: "parentkid",
+    actualKey: "parent_kid",
   },
   {
     translationKey: "designtab.form.type.options.outing",
