@@ -1,6 +1,7 @@
 import { DesignCanvas } from "@/components/DesignCanvas";
 import { LoaderSVG } from "@/components/graphics/Loader";
-import { extractDateTime } from "@/helpers";
+import { convertToTimestamptzAtGMT8, extractDateTime } from "@/helpers";
+import { useUserStore } from "@/store/use-store";
 import { useDesign } from "@/store/useDesign";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -14,8 +15,28 @@ const DesignContent = () => {
   const [loading, setLoading] = useState(true);
   const [currentActiveIndex, setCurrentActiveIndex] = useState<number>(0);
   const [downloading, setDownloading] = useState(false);
-  const handleShareImage = async (href: string) => {
-    const res = await fetch(`${import.meta.env["VITE_API_URL"]}mission/upload`);
+  const { UID } = useUserStore();
+
+  const handleShareImage = async (href: string, selector: number) => {
+    const res = await fetch(
+      `${import.meta.env["VITE_API_URL"]}design/complete`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          theme_name: form.theme,
+          event_datetime: convertToTimestamptzAtGMT8(form.datetime),
+          venue: form.venue,
+          event_type: form.type,
+          uid: UID,
+          template_id: `${form.type}.${selector}`,
+          image_string: href,
+        }),
+      }
+    );
+    const result = await res.json();
 
     // @ts-expect-error no flutter_inappwebview in typical Window, this is injected in webview
     if (!window.flutter_inappwebview) return;
@@ -25,7 +46,7 @@ const DesignContent = () => {
         "share",
         "image",
         `${form.theme}-${extractDateTime(form.datetime).date}.jpg`,
-        href
+        result.data
       )
       .then((result: string) => {
         console.log(result);
@@ -259,11 +280,11 @@ const DesignContent = () => {
             ) as HTMLCanvasElement;
             const image = canvas.toDataURL("image/jpg", 1);
 
-            handleShareImage(image);
+            await handleShareImage(image, currentActiveIndex + 1)
+              .then(() => setDownloading(false))
+              .finally(() => setDownloading(false));
           } catch (err) {
             console.error(err);
-          } finally {
-            setDownloading(false);
           }
         }}
       >

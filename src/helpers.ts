@@ -55,3 +55,19 @@ export const extractDateTime = (dateTimeString: string) => {
     time: formattedTime, // '9:06 PM'
   };
 };
+
+export const convertToTimestamptzAtGMT8 = (utcTimestamp: string) => {
+  // Create a Date object from the UTC timestamp
+  const date = new Date(utcTimestamp);
+
+  // Convert to ISO string in UTC format (this will always have a 'Z' at the end)
+  const isoString = date.toISOString(); // Example output: "2024-09-10T12:00:00.000Z"
+
+  // Return the timestamptz format with the adjusted timezone offset for GMT+8
+  return isoString.replace("Z", "+08:00");
+};
+
+// Example usage
+// const utcTimestamp = "2024-09-10T12:00:00"; // UTC timestamp
+// const timestamptzAtGMT8 = convertToTimestamptzAtGMT8(utcTimestamp);
+// console.log(timestamptzAtGMT8); // Output: "2024-09-10T12:00:00.000+08:00"

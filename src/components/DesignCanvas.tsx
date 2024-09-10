@@ -7,7 +7,7 @@ export type TypeVariant =
   | "mid_autumn"
   | "food"
   | "games"
-  | "parentkid"
+  | "parent_kid"
   | "outing"
   | "";
 type FontPosition = {
@@ -246,7 +246,7 @@ const variantMap: Omit<
       },
     },
   },
-  parentkid: {
+  parent_kid: {
     1: {
       src: "/1.jpg",
       titlePos: {
