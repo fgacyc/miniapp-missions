@@ -9,6 +9,7 @@ export type TypeVariant =
   | "games"
   | "parent_kid"
   | "outing"
+  | "other"
   | "";
 type FontPosition = {
   x: number;
@@ -377,6 +378,79 @@ const variantMap: Omit<
         fillStyle: "#E69375",
         lineHeight: 140,
         fontStyle: "150px pinyon, chi15",
+      },
+      datetimePos: {
+        x: 134,
+        y: 835,
+        fillStyle: "#748E7E",
+        fontStyle: "900 30px SF-Pro",
+      },
+      venuePos: {
+        x: 134,
+        y: 880,
+        fillStyle: "#748E7E",
+        fontStyle: "26px SF-Pro",
+      },
+    },
+  },
+  other: {
+    1: {
+      src: "/1.jpg",
+      titlePos: {
+        x: 124,
+        y: 540,
+        fillStyle: "#FFF",
+        fontStyle: "114px bebas, chi8",
+        lineHeight: 120,
+      },
+      datetimePos: {
+        x: 124,
+        y: 930,
+        fillStyle: "#fff",
+        fontStyle: "900 24px SF-Pro",
+      },
+      venuePos: {
+        x: 124,
+        y: 970,
+        fillStyle: "#fff",
+        fontStyle: "24px SF-Pro",
+      },
+    },
+    2: {
+      src: "/2.jpg",
+      titlePos: {
+        x: 582,
+        y: 300,
+        textAlign: "center",
+        noUppercase: true,
+        fontStyle: "150px axiforma, chi3",
+        fillStyle: "#000",
+        lineHeight: 150,
+      },
+      datetimePos: {
+        x: 582,
+        y: 862,
+        textAlign: "center",
+        fillStyle: "#2852A3",
+        fontStyle: "900 30px SF-Pro",
+      },
+      venuePos: {
+        x: 582,
+        y: 910,
+        textAlign: "center",
+        fillStyle: "#2852A3",
+        fontStyle: "26px SF-Pro",
+      },
+    },
+    3: {
+      src: "/3.jpg",
+      titlePos: {
+        x: 134,
+        y: 250,
+        noUppercase: true,
+        lineHeight: 140,
+        fillStyle: "#02311F",
+        fontStyle: "150px nagoda, chi18",
       },
       datetimePos: {
         x: 134,

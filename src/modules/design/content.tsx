@@ -120,6 +120,15 @@ const DesignContent = () => {
       "url(/fonts/pinyon-script/regular.ttf)"
     );
 
+    const bebas = new FontFace("bebas", "url(/fonts/bebas/regular.otf)");
+
+    const axiforma = new FontFace(
+      "axiforma",
+      "url(/fonts/axiforma/regular.ttf)"
+    );
+
+    const nagoda = new FontFace("nagoda", "url(/fonts/nagoda/regular.otf)");
+
     const chi1 = new FontFace("chi1", "url(/fonts/chi_1/regular.TTF)");
     const chi2 = new FontFace("chi2", "url(/fonts/chi_2/regular.TTF)");
     const chi3 = new FontFace("chi3", "url(/fonts/chi_3/regular.TTF)");
@@ -128,6 +137,7 @@ const DesignContent = () => {
     const chi8 = new FontFace("chi8", "url(/fonts/chi_8/regular.ttf)");
     const chi10 = new FontFace("chi10", "url(/fonts/chi_10/regular.ttf)");
     const chi15 = new FontFace("chi15", "url(/fonts/chi_15/regular.otf)");
+    const chi18 = new FontFace("chi18", "url(/fonts/chi_18/regular.ttf)");
 
     document.fonts.add(dmSerif);
     document.fonts.add(poppinsBlack);
@@ -142,6 +152,9 @@ const DesignContent = () => {
     document.fonts.add(montserratBlack);
     document.fonts.add(montserratBold);
     document.fonts.add(pinyonScript);
+    document.fonts.add(bebas);
+    document.fonts.add(axiforma);
+    document.fonts.add(nagoda);
     document.fonts.add(chi1);
     document.fonts.add(chi2);
     document.fonts.add(chi3);
@@ -150,7 +163,10 @@ const DesignContent = () => {
     document.fonts.add(chi8);
     document.fonts.add(chi10);
     document.fonts.add(chi15);
+    document.fonts.add(chi18);
 
+    nagoda.load();
+    axiforma.load();
     dmSerif.load();
     poppinsBlack.load();
     warIsOver.load();
@@ -164,6 +180,7 @@ const DesignContent = () => {
     montserratBlack.load();
     montserratBold.load();
     pinyonScript.load();
+    bebas.load();
     chi1.load();
     chi2.load();
     chi3.load();
@@ -172,6 +189,7 @@ const DesignContent = () => {
     chi8.load();
     chi10.load();
     chi15.load();
+    chi18.load();
     document.fonts.ready.then(() => setLoading(false));
   }, []);
 

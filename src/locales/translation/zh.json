@@ -44,7 +44,8 @@
           "food": "Food Party",
           "games": "Games Party",
           "parent_kid": "Parent-Kid Party",
-          "outing": "Outing"
+          "outing": "Outing",
+          "other": "Others"
         },
         "error": "Please select a type."
       }

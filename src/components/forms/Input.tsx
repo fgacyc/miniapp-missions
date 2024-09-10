@@ -95,10 +95,10 @@ const typesOption: { translationKey: string; actualKey: TypeVariant }[] = [
     translationKey: "designtab.form.type.options.outing",
     actualKey: "outing",
   },
-  // {
-  //   translationKey: "designtab.form.type.options.entrepreneur",
-  //   actualKey: "Entrepreneur",
-  // },
+  {
+    translationKey: "designtab.form.type.options.other",
+    actualKey: "other",
+  },
 ];
 
 export const TypeInput = <T,>({
